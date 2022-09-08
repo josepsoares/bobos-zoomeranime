@@ -1,6 +1,6 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import Box from '@components/box'
-import Image from '@components/image'
 import Container from '@components/layout/container'
 
 const About: React.FC = () => {
@@ -34,7 +34,11 @@ const About: React.FC = () => {
               series or movies button.
             </p>
           </Box>
-          <Image src="pikachu-test.png" alt="teste" />
+          <Image
+            layout="fill"
+            src="/assets/images/pikachu-test.png"
+            alt="teste"
+          />
         </Box>
       </Container>
     </>

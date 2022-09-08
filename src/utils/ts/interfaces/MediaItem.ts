@@ -1,8 +1,8 @@
-import Tag from '@interfaces/Tag'
-import Character from '@interfaces/Character'
-import Studio from '@interfaces/Studio'
-import Staff from '@interfaces/Staff'
-import Review from '@interfaces/Review'
+import Tag from 'utils/ts/interfaces/Tag'
+import Character from 'utils/ts/interfaces/Character'
+import Studio from 'utils/ts/interfaces/Studio'
+import Staff from 'utils/ts/interfaces/Staff'
+import Review from 'utils/ts/interfaces/Review'
 
 interface MediaItem {
   Media: {

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-import MarkdownItem from '@interfaces/MarkdownItem'
+import MarkdownItem from 'utils/ts/interfaces/MarkdownItem'
 import Box from '@components/box'
 import ImageBox from '@components/layout/imageBox'
 // import BlueGradientContainer from '@components/layout/blueGradientContainer'
@@ -79,9 +79,7 @@ const MoviesList: React.FC<{ movies: MarkdownItem[]; maxPage: number }> = ({
         />
       </Head>
 
-      <BoxWithBgGradient
-        img={require('../assets/img/jake-hills-23LET4Hxj_U-unsplash.jpg')}
-      >
+      <BoxWithBgGradient img="/assets/images/jake-hills-23LET4Hxj_U-unsplash.jpg">
         <Heading position="relative" textAlign="center" type="h1">
           <span>movies</span>
           <JapaneseHeading positionX="0" positionY="25">

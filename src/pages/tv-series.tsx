@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { GetStaticProps } from 'next'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-import MarkdownItem from '@interfaces/MarkdownItem'
+import MarkdownItem from 'utils/ts/interfaces/MarkdownItem'
 import Box from '@components/box'
 import ImageBox from '@components/layout/imageBox'
 import Heading from '@components/heading'
@@ -79,9 +79,7 @@ const TvSeriesList: React.FC<{ tvSeries: MarkdownItem[]; maxPage: number }> = ({
         />
       </Head>
 
-      <BoxWithBgGradient
-        img={require('../assets/img/jake-hills-23LET4Hxj_U-unsplash.jpg')}
-      >
+      <BoxWithBgGradient img="/assets/images/jake-hills-23LET4Hxj_U-unsplash.jpg">
         <Heading position="relative" textAlign="center" type="h1">
           <span>tv series</span>
           <JapaneseHeading>テレビ番組</JapaneseHeading>
@@ -102,8 +100,13 @@ const TvSeriesList: React.FC<{ tvSeries: MarkdownItem[]; maxPage: number }> = ({
         >
           <Box
             display="grid"
-            gridGap={2}
-            gridTemplateColumns="repeat(auto-fit, minmax(150px, 1fr))"
+            gridGap={5}
+            justifyContent="center"
+            gridTemplateColumns={[
+              'repeat(auto-fit, 80%)',
+              'repeat(auto-fit, 13.5rem)',
+              'repeat(auto-fit, 15%)'
+            ]}
           >
             {tvSeries.map((item: MarkdownItem, index: number) => (
               <div key={index}>

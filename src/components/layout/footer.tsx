@@ -19,7 +19,12 @@ const FooterEl = styled.footer`
 const Footer: React.FC = () => {
   return (
     <FooterEl>
-      <p>copyright © bobo's millennialanime 2020 - josepsoares</p>
+      <p>
+        bobo's zoomeranime {new Date().getFullYear()} -{' '}
+        <a rel="noreferrer" target="_blank" href="https://josepsoares.now.sh/">
+          josepsoares
+        </a>
+      </p>
     </FooterEl>
   )
 }

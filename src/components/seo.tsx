@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import seoConfig from '@config/seoConfig'
+import seoConfig from 'utils/config/seoConfig'
 
 export default function SEO({ description, title, image, slug, article }) {
   const {

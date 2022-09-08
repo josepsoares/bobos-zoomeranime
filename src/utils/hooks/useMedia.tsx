@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import { Fetcher } from 'swr/dist/types'
-import MediaItem from '@interfaces/MediaItem'
+import MediaItem from 'utils/ts/interfaces/MediaItem'
 
 const fetcher: Fetcher<MediaItem> = async (search: string) => {
   console.log(search)

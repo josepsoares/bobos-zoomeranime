@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useWindowSize, useMeasure } from 'react-use'
 import { useSpring, animated, config } from 'react-spring'
 import { FacebookShareButton, TwitterShareButton } from 'react-share'
@@ -24,10 +25,9 @@ import {
   Star
 } from '@styled-icons/boxicons-solid'
 import { FacebookCircle, Twitter } from '@styled-icons/boxicons-logos'
-import { useMedia } from 'hooks/useMedia'
-import MarkdownItem from '@interfaces/MarkdownItem'
-import Character from '@interfaces/Character'
-import Image from '@components/image'
+import { useMedia } from 'utils/hooks/useMedia'
+import MarkdownItem from 'utils/ts/interfaces/MarkdownItem'
+import Character from 'utils/ts/interfaces/Character'
 import JapaneseHeading from '@components/japaneseHeading'
 import Loading from '@components/feedback/loading'
 import Error from '@components/feedback/error'
@@ -324,7 +324,11 @@ const TvSeriePage: React.FC<{
           <JapaneseHeading>ボボ の 評決</JapaneseHeading>
         </h1>
         <h2 className="py-6">{rating.text}</h2>
-        <Image alt="rating illustration" src={rating.illus} />
+        <Image
+          layout="fill"
+          alt="rating illustration"
+          src="/assets/images/pikachu-test.png"
+        />
         {/* Vai ter aqui uma imagem acerca com uma avaliação final <img /> */}
       </BlueGradientContainer>
 

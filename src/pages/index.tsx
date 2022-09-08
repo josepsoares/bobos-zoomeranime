@@ -7,12 +7,12 @@ import useSWR from 'swr'
 import { Fetcher } from 'swr/dist/types'
 
 import Box from '@components/box'
-import Image from '@components/image'
 import ImageBox from '@components/layout/imageBox'
 import Text from '@components/text'
 import Error from '@components/feedback/error'
 import Loading from '@components/feedback/loading'
 import Container from '@components/layout/container'
+import Image from 'next/image'
 
 interface HomeMediaItem {
   title: {
@@ -24,7 +24,6 @@ interface HomeMediaItem {
 }
 
 const fetcher: Fetcher<HomeMediaItem[]> = async (items: string[]) => {
-  console.log(items)
   const url = 'https://graphql.anilist.co'
 
   const getData = await Promise.all(
@@ -56,22 +55,16 @@ const fetcher: Fetcher<HomeMediaItem[]> = async (items: string[]) => {
   return getData
 }
 
-export const useHomeMedia = (
-  itemNames: string[],
-  initialData: HomeMediaItem[]
-): { data: HomeMediaItem[]; error: string } => {
-  const { data, error } = useSWR<HomeMediaItem[], string>(itemNames, fetcher, {
-    initialData: initialData
-  })
-
-  return { data, error }
-}
-
 const Home: React.FC<{
   randItemsData: HomeMediaItem[]
   randItemsName: string[]
 }> = ({ randItemsData, randItemsName }) => {
-  const { data, error } = useHomeMedia(randItemsName, randItemsData)
+  const { data, error } = useSWR<HomeMediaItem[]>(randItemsName, fetcher, {
+    fallbackData: randItemsData
+  })
+
+  console.log('DATA =>', data)
+  console.log('ERROR =>', error)
 
   return !data ? (
     <Loading />
@@ -115,7 +108,12 @@ const Home: React.FC<{
               hidden: { opacity: 0, y: -10 }
             }}
           >
-            <Image src="pikachu-test.png" alt="teste" />
+            <Image
+              src="/assets/images/pikachu-test.png"
+              alt="teste"
+              width="100px"
+              height="100px"
+            />
           </Box>
         </Box>
         <Box
@@ -132,9 +130,9 @@ const Home: React.FC<{
               <a>
                 <ImageBox
                   h="25vh"
-                  image={item.bannerImage}
-                  title={item.title.romaji}
-                  nativeTitle={item.title.native}
+                  image={item?.bannerImage}
+                  title={item?.title.romaji}
+                  nativeTitle={item?.title.native}
                 />
               </a>
             </Link>
@@ -157,8 +155,8 @@ export const getStaticProps: GetStaticProps = async () => {
     Math.random() * (allTvSeries.length + 1)
   )
 
-  console.log(moviesDirectory, allMovies[getRandMovieIndex])
-  console.log(tvSeriesDirectory, allTvSeries[getRandTvSeriesIndex])
+  console.log(path.join(moviesDirectory, allMovies[getRandMovieIndex]))
+  console.log(path.join(tvSeriesDirectory, allTvSeries[getRandTvSeriesIndex]))
 
   const randMovieName = matter(
     fs.readFileSync(

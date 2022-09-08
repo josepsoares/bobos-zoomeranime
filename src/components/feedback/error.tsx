@@ -1,9 +1,9 @@
 import React from 'react'
 import Box from '@components/box'
-import Image from '@components/image'
 import JapaneseHeading from '@components/japaneseHeading'
 import Container from '@components/layout/container'
 import Heading from '@components/heading'
+import Image from 'next/image'
 
 const Error: React.FC<{ error: string }> = ({ error }) => {
   console.log(error)
@@ -25,7 +25,12 @@ const Error: React.FC<{ error: string }> = ({ error }) => {
             <p>It appears something went wrong...</p>
           </Box>
         </Box>
-        <Image src="pikachu-test.png" alt="teste" />
+        <Image
+          width="100px"
+          height="100px"
+          src="/assets/images/pikachu-test.png"
+          alt="teste"
+        />
       </Box>
     </Container>
   )

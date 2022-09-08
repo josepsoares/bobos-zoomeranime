@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion'
 import { ThemeProvider } from 'styled-components'
 import { SWRConfig } from 'swr'
 
-import swrConfig from '@config/swrConfig'
+import swrConfig from 'utils/config/swrConfig'
 import bobosZoomerTheme from '@styles/theme'
 import GlobalStyles from '@styles/global'
 import AnimationLayout from '@components/layout/animationLayout'

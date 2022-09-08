@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
+import Image from 'next/image'
 import Box from '@components/box'
-import Image from '@components/image'
 import Container from '@components/layout/container'
 
 const NoMatch: React.FC = () => {
@@ -22,7 +22,11 @@ const NoMatch: React.FC = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Image src="pikachu-test.png" alt="teste" />
+          <Image
+            layout="fill"
+            src="/assets/images/pikachu-test.png"
+            alt="teste"
+          />
           <Box textAlign="center" pt={6} pb={2}>
             <h1>error 404</h1>
             <h4>page not found</h4>
