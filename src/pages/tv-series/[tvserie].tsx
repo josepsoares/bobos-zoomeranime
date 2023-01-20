@@ -7,8 +7,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useWindowSize, useMeasure } from 'react-use'
-import { useSpring, animated, config } from 'react-spring'
-import { FacebookShareButton, TwitterShareButton } from 'react-share'
+import { useSpring, animated, config } from '@react-spring/web'
 import ReactMarkdown from 'react-markdown'
 
 import Box from '@components/box'
@@ -17,17 +16,17 @@ import BlueGradientContainer from '@components/layout/blueGradientContainer'
 import ImageTitle from '@components/layout/imageBoxTitle'
 import QuoteButton from '@components/buttons/quoteButton'
 import NextPrevButton from '@components/buttons/nextPrevButton'
-import {
-  LeftArrowAlt,
-  RightArrowAlt,
-  StarHalf,
-  SquareRounded,
-  Star
-} from '@styled-icons/boxicons-solid'
-import { FacebookCircle, Twitter } from '@styled-icons/boxicons-logos'
-import { useMedia } from 'utils/hooks/useMedia'
-import MarkdownItem from 'utils/ts/interfaces/MarkdownItem'
-import Character from 'utils/ts/interfaces/Character'
+
+// icons
+import LeftArrow from 'assets/icons/bx-left-arrow-alt.svg'
+import RightArrow from 'assets/icons/bx-right-arrow-alt.svg'
+import StarHalf from 'assets/icons/bxs-star-half.svg'
+import Star from 'assets/icons/bxs-star.svg'
+import SquareRounded from 'assets/icons/bxs-square-rounded.svg'
+
+import { useMedia } from '@utils/hooks/useMedia'
+import MarkdownItem from '@utils/ts/interfaces/MarkdownItem'
+import ICharacter from 'utils/ts/interfaces/Character'
 import JapaneseHeading from '@components/japaneseHeading'
 import Loading from '@components/feedback/loading'
 import Error from '@components/feedback/error'

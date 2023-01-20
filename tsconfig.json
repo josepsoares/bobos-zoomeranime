@@ -1,57 +1,29 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
+    "target": "esnext",
     "module": "esnext",
+    "lib": ["es6", "es7", "esnext", "dom"],
+    "strict": false,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": "src",
+    "incremental": true,
+    "noImplicitAny": false,
+    "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "components/*"
-      ],
-      "@pages/*": [
-        "pages/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@assets/*": [
-        "assets/*"
-      ],
-      "@content/*": [
-        "content/*"
-      ],
-      "@config/*": [
-        "config/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@interfaces/*": [
-        "interfaces/*"
-      ]
-    },
-    "incremental": true
+      "@components/*": ["./src/components/*"],
+      "@content/*": ["./src/content/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

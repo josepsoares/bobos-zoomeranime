@@ -1,35 +1,38 @@
-import styled from 'styled-components'
+import { styled } from '@stitches/react'
 
-const QuoteButton = styled.button<{ active: boolean | null }>`
-  color: ${props =>
-    props.active
-      ? props.theme.colors.lightBlue
-      : props.theme.colors.lightPurple};
-  background-color: ${props =>
-    props.active ? 'rgba(199, 155, 178, 0.25)' : 'transparent'};
-  transition: ${props => props.theme.transitions.normal};
-  border: 0;
-  padding: ${props => props.theme.spacing.half};
-  margin: 0 ${props => props.theme.spacing.quarter};
+const QuoteButton = styled('button', {
+  color: '$lightPurple',
+  backgroundCcolor: 'transparent',
+  transition: '$normal',
+  border: 0,
+  padding: '$2',
+  margin: '0 $4',
 
-  &:hover,
-  &:active {
-    background-color: rgba(88, 111, 124, 0.25);
-  }
+  '&:hover, &:active': {
+    backgroundColor: 'rgba(88, 111, 124, 0.25)'
+  },
 
-  &:disabled {
-    opacity: 0.3;
+  '&:disabled': {
+    opacity: 0.3,
 
-    &:hover,
-    &:active {
-      background-color: transparent !important;
+    '&:hover, &:active': {
+      backgroundColor: 'transparent'
+    }
+  },
+
+  svg: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+
+  variants: {
+    active: {
+      true: {
+        color: '$lightBlue',
+        backgroundColor: 'rgba(199, 155, 178, 0.25)'
+      }
     }
   }
-
-  svg {
-    display: flex;
-    align-items: center;
-  }
-`
+})
 
 export default QuoteButton

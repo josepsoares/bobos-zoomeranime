@@ -2,23 +2,22 @@ import { useEffect, useState } from 'react'
 import { NextComponentType } from 'next'
 import { AppContext, AppInitialProps, AppProps } from 'next/app'
 import Head from 'next/head'
-import { AnimatePresence } from 'framer-motion'
-import { ThemeProvider } from 'styled-components'
-import { SWRConfig } from 'swr'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
-import swrConfig from 'utils/config/swrConfig'
-import bobosZoomerTheme from '@styles/theme'
 import GlobalStyles from '@styles/global'
-import AnimationLayout from '@components/layout/animationLayout'
+
 import Header from '@components/header/navbar'
-import Footer from '@components/layout/footer'
-import Box from '@components/box'
+import Box from '@components/primitives/box'
+import Footer from '@components/footer'
+import GoTopButton from '@components/buttons/goToTopButton'
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
   Component,
   pageProps,
   router
 }) => {
+  const [queryClient] = useState(() => new QueryClient())
+
   useEffect(() => {
     router.events.on('routeChangeComplete', () => {
       window.scroll({
@@ -28,44 +27,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
       })
     })
   }, [router])
-
-  const [intro, setIntro] = useState(false)
-  const [verifyingIntro, setVerifyingIntro] = useState(true)
-
-  /* useEffect(() => {
-    let introTimer = null
-    const getLocalStorageIntro =
-      typeof window !== 'undefined' ? localStorage.getItem('intro') : null
-
-    if (!getLocalStorageIntro) {
-      setVerifyingIntro(false)
-    } else {
-      const getIntroExpireDate = JSON.parse(getLocalStorageIntro)
-      const now = new Date()
-
-      if (now.getTime() > getIntroExpireDate.expiresAt) {
-        setVerifyingIntro(false)
-      } else {
-        setVerifyingIntro(false)
-        setIntro(true)
-        introTimer = setTimeout(() => {
-          const now = new Date()
-          const createIntroExpireDate = JSON.stringify({
-            expiresAt: now.getTime() + 21600
-          })
-          setIntro(false)
-          typeof window !== 'undefined' &&
-            localStorage.setItem('intro', createIntroExpireDate)
-        }, 4000)
-      }
-    }
-
-    return () => {
-      if (introTimer) {
-        clearTimeout(introTimer)
-      }
-    }
-  }, []) */
 
   return (
     <>
@@ -94,24 +55,25 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
           key="twhandle"
         />
       </Head>
-      <SWRConfig value={swrConfig}>
-        <ThemeProvider theme={bobosZoomerTheme}>
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
           <GlobalStyles />
           <main>
             <Box
-              display="grid"
-              gridTemplateRows="auto 1fr auto"
-              minHeight="100vh"
+              css={{
+                display: 'grid',
+                minHeight: '100vh',
+                gridTemplateRows: 'auto 1fr auto'
+              }}
             >
               <Header />
-              <AnimatePresence exitBeforeEnter>
-                <Component {...pageProps} />
-              </AnimatePresence>
+              <Component {...pageProps} />
               <Footer />
             </Box>
+            <GoTopButton />
           </main>
-        </ThemeProvider>
-      </SWRConfig>
+        </Hydrate>
+      </QueryClientProvider>
     </>
   )
 }

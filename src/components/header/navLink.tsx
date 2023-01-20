@@ -1,38 +1,45 @@
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import styled from 'styled-components'
+import { useRouter } from 'next/router'
+import { styled } from '@stitches/react'
 
-const NavLinkEl = styled.a<{ active?: boolean }>`
-  outline: 0;
-  text-transform: lowercase;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  letter-spacing: 0.09em;
-  position: relative;
-  cursor: pointer;
-  gap: 0.8rem;
-  border-radius: 4px;
-  z-index: 1;
-  font-weight: ${props => (props.active ? 'bold' : 'normal')};
-  transition: ${({ theme }) => theme.transitions.fast};
-  color: ${props =>
-    props.active ? props.theme.colors.lightPurple : props.theme.colors.white};
+const NavLinkEl = styled(Link, {
+  outline: 0,
+  textTransform: 'lowercase',
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+  letterSpacing: '0.09em',
+  position: 'relative',
+  cursor: 'pointer',
+  gap: '0.8rem',
+  borderRadius: 4,
+  zIndex: 1,
+  transition: '$fast',
+  padding: '$4',
+  fontWeight: 'normal',
+  color: '#fff',
 
-  padding: ${({ theme }) => `${theme.spacing[4]} ${theme.spacing[4]}`};
+  '@bp4': {
+    py: '$4',
+    px: '$6'
+  },
 
-  @media ${({ theme }) => theme.mediaQueries.lg} {
-    padding: ${({ theme }) => `${theme.spacing[4]} ${theme.spacing[6]}`};
+  '&:hover, &:active': {
+    color: '$lightPurple',
+    backgroundColor: '#586f7c9a'
+  },
+
+  variants: {
+    active: {
+      true: {
+        fontWeight: 'bold',
+        color: '$lightPurple'
+      }
+    }
   }
-
-  &:hover,
-  &:active {
-    color: ${({ theme }) => theme.colors.lightPurple};
-    background-color: #586f7c9a;
-  }
-`
+})
 
 const NavLink: React.FC<{
   href: string
@@ -42,9 +49,9 @@ const NavLink: React.FC<{
   const active = router.pathname === href
 
   return (
-    <Link href={href} passHref>
-      <NavLinkEl active={active}>{component}</NavLinkEl>
-    </Link>
+    <NavLinkEl active={active} href={href}>
+      {component}
+    </NavLinkEl>
   )
 }
 

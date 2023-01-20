@@ -9,7 +9,7 @@ const NoMatch: React.FC = () => {
   return (
     <>
       <Head>
-        <title>erro 404 - bobo's zoomeranime</title>
+        <title>erro 500 - bobo's zoomeranime</title>
         <meta
           name="description"
           content="a generic error page of bobo's zoomeranime website"
@@ -27,16 +27,14 @@ const NoMatch: React.FC = () => {
         >
           <Image src="/assets/images/pikachu-test.png" alt="teste" />
           <Box
-            css={{
-              textAlign: 'center',
-              pt: '$6',
-              pb: '$2'
-            }}
+            css={{ textAlign: 'center', paddingTop: '$6', paddingBottom: '$2' }}
           >
-            <h1>erro 404</h1>
-            <h4>página não encontrada...</h4>
+            <h1>error 500</h1>
+            <h4>página não encontrada</h4>
           </Box>
-          <Link href="/">voltar à página inicial</Link>
+          <Link href="/">
+            <a>voltar à página inicial</a>
+          </Link>
         </Box>
       </Container>
     </>

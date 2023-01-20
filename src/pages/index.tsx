@@ -1,76 +1,32 @@
 import fs from 'fs'
 import path from 'path'
-import { GetStaticProps } from 'next'
-import Link from 'next/link'
 import matter from 'gray-matter'
-import useSWR from 'swr'
-import { Fetcher } from 'swr/dist/types'
 
-import Box from '@components/box'
-import ImageBox from '@components/layout/imageBox'
-import Text from '@components/text'
-import Error from '@components/feedback/error'
-import Loading from '@components/feedback/loading'
-import Container from '@components/layout/container'
+import Link from 'next/link'
 import Image from 'next/image'
 
-interface HomeMediaItem {
-  title: {
-    romaji: string
-    native: string
-  }
+import Box from '@components/primitives/box'
+import Text from '@components/primitives/text'
+import Container from '@components/primitives/container'
+import ImageBox from '@components/imageBox'
+
+import type { GetStaticProps, NextPage } from 'next'
+
+// TODO - fix styles
+
+interface IHomeContentItem {
+  slug: string
+  title: string
+  nativeTitle: string
+  type: 'movie' | 'tv-serie'
   bannerImage: string
   description: string
 }
 
-const fetcher: Fetcher<HomeMediaItem[]> = async (items: string[]) => {
-  const url = 'https://graphql.anilist.co'
-
-  const getData = await Promise.all(
-    items.map(async (item: string) => {
-      const request = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify({
-          query: `query {
-                      Media (search: "${item}", type: ANIME) {
-                          title{
-                              romaji
-                              native
-                          }
-                          bannerImage
-                          description
-                      }
-                  }`
-        })
-      })
-      const data = await request.json()
-      return data.data.Media
-    })
-  )
-
-  return getData
-}
-
-const Home: React.FC<{
-  randItemsData: HomeMediaItem[]
-  randItemsName: string[]
-}> = ({ randItemsData, randItemsName }) => {
-  const { data, error } = useSWR<HomeMediaItem[]>(randItemsName, fetcher, {
-    fallbackData: randItemsData
-  })
-
-  console.log('DATA =>', data)
-  console.log('ERROR =>', error)
-
-  return !data ? (
-    <Loading />
-  ) : error ? (
-    <Error error={error} />
-  ) : (
+const Home: NextPage<{
+  data: IHomeContentItem[]
+}> = ({ data }) => {
+  return (
     <article>
       <Container>
         <Box
@@ -111,8 +67,8 @@ const Home: React.FC<{
             <Image
               src="/assets/images/pikachu-test.png"
               alt="teste"
-              width="100px"
-              height="100px"
+              width={100}
+              height={100}
             />
           </Box>
         </Box>
@@ -121,20 +77,14 @@ const Home: React.FC<{
           gridTemplateColumns={['1fr', null, '1fr 1fr']}
           gridGap={4}
         >
-          {/* fazer scroll horizontal aqui de pelos 4 itens de cada categoria */}
-          {data.map((item: HomeMediaItem, index: number) => (
-            <Link
-              key={index}
-              href={`/${randItemsName[index]}/${randItemsName[index]}`}
-            >
-              <a>
-                <ImageBox
-                  h="25vh"
-                  image={item?.bannerImage}
-                  title={item?.title.romaji}
-                  nativeTitle={item?.title.native}
-                />
-              </a>
+          {data.map((item: IHomeContentItem, index: number) => (
+            <Link key={index} href={`/${item.type}s/${item.slug}`}>
+              <ImageBox
+                h="25vh"
+                image={item?.bannerImage}
+                title={item?.title}
+                nativeTitle={item?.nativeTitle}
+              />
             </Link>
           ))}
         </Box>
@@ -155,31 +105,40 @@ export const getStaticProps: GetStaticProps = async () => {
     Math.random() * (allTvSeries.length + 1)
   )
 
-  console.log(path.join(moviesDirectory, allMovies[getRandMovieIndex]))
-  console.log(path.join(tvSeriesDirectory, allTvSeries[getRandTvSeriesIndex]))
-
-  const randMovieName = matter(
+  const randMovie = matter(
     fs.readFileSync(
       path.join(moviesDirectory, allMovies[getRandMovieIndex]),
       'utf8'
     )
   )
-  const randTvSerieName = matter(
+
+  const randTvSerie = matter(
     fs.readFileSync(
       path.join(tvSeriesDirectory, allTvSeries[getRandTvSeriesIndex]),
       'utf8'
     )
   )
 
-  const randItemsData = await fetcher([
-    randMovieName.data.title,
-    randTvSerieName.data.title
-  ])
-
   return {
     props: {
-      randItemsData,
-      randItemsName: [randMovieName.data.title, randTvSerieName.data.title]
+      data: [
+        {
+          slug: randMovie.data.slug,
+          description: randMovie.data.description,
+          bannerImage: randMovie.data.bannerImage,
+          title: randMovie.data.title,
+          nativeTitle: randMovie.data.nativeTitle,
+          type: 'movie'
+        },
+        {
+          slug: randMovie.data.slug,
+          description: randTvSerie.data.description,
+          bannerImage: randTvSerie.data.bannerImage,
+          title: randTvSerie.data.title,
+          nativeTitle: randTvSerie.data.nativeTitle,
+          type: 'tv-serie'
+        }
+      ]
     }
   }
 }

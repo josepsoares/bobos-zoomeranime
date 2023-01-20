@@ -1,8 +1,10 @@
 import Head from 'next/head'
-import Box from '@components/box'
-import Heading from '@components/heading'
+
+import Box from '@components/primitives/box'
+import Heading from '@components/primitives/heading'
+import Container from '@components/primitives/container'
+
 import JapaneseHeading from '@components/japaneseHeading'
-import Container from '@components/layout/container'
 
 const Loading: React.FC = () => {
   return (
@@ -17,12 +19,14 @@ const Loading: React.FC = () => {
 
       <Container>
         <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
+          css={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
         >
-          <Heading type="h2">
+          <Heading as="h2">
             <span>Loading...</span>
             <JapaneseHeading>誤り...</JapaneseHeading>
           </Heading>

@@ -1,20 +1,18 @@
 import { styled } from '@stitches/react'
 
-const NextPrevButton = styled('button', {
+const Button = styled('button', {
   borderBottom: '2px solid',
-  borderColor: '$lightPurple',
+  borderColor: '$lighPurple',
   color: '$lightBlue',
   transition: '$normal',
-  padding: '$2',
-
+  padding: '$1',
   span: {
     transition: '$normal'
   },
-
   '&:hover, &:active': {
     backgroundColor: '$darkBlue',
     color: '$lightPurple'
   }
 })
 
-export default NextPrevButton
+export default Button

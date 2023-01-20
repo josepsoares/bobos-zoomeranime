@@ -1,40 +1,40 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+
 import { useState, useEffect } from 'react'
-import { GetStaticPaths, GetStaticProps } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useWindowSize, useMeasure } from 'react-use'
-import { useSpring, animated, config } from 'react-spring'
-import { FacebookShareButton, TwitterShareButton } from 'react-share'
+import { useSpring, animated, config } from '@react-spring/web'
 import ReactMarkdown from 'react-markdown'
 
-import Box from '@components/box'
-// import getRandomPhrase from '../../scripts/getRandomPhrase'
+import Box from '@components/primitives/box'
+import Container from '@components/primitives/container'
+import Text from '@components/primitives/text'
+import Heading from '@components/primitives/heading'
+
 import BlueGradientContainer from '@components/layout/blueGradientContainer'
+import BoxWithBgGradient from '@components/layout/boxWithBgGradient'
+import JapaneseHeading from '@components/japaneseHeading'
 import QuoteButton from '@components/buttons/quoteButton'
 import NextPrevButton from '@components/buttons/nextPrevButton'
-import {
-  LeftArrowAlt,
-  RightArrowAlt,
-  StarHalf,
-  SquareRounded,
-  Star
-} from '@styled-icons/boxicons-solid'
-import { FacebookCircle, Twitter } from '@styled-icons/boxicons-logos'
-import { useMedia } from 'utils/hooks/useMedia'
-import MarkdownItem from 'utils/ts/interfaces/MarkdownItem'
-import Character from 'utils/ts/interfaces/Character'
-import JapaneseHeading from '@components/japaneseHeading'
+
 import Loading from '@components/feedback/loading'
 import Error from '@components/feedback/error'
-import Heading from '@components/heading'
-import Text from '@components/text'
-import BoxWithBgGradient from '@components/layout/boxWithBgGradient'
-import Container from '@components/layout/container'
-import Staff from 'utils/ts/interfaces/Staff'
+
+// icons
+import LeftArrow from 'assets/icons/bx-left-arrow-alt.svg'
+import RightArrow from 'assets/icons/bx-right-arrow-alt.svg'
+import StarHalf from 'assets/icons/bxs-star-half.svg'
+import Star from 'assets/icons/bxs-star.svg'
+import SquareRounded from 'assets/icons/bxs-square-rounded.svg'
+
+// types
+import type { GetStaticPaths, GetStaticProps } from 'next'
+import type { ICharacter, IStaff } from '@utils/ts/aniListApiTypes'
+import type IContent from '@utils/ts/IContent'
 
 const printStars = (number: string) => {
   const stars = []
@@ -64,9 +64,9 @@ const printStars = (number: string) => {
 }
 
 const MoviePage: React.FC<{
-  movie: MarkdownItem
-  previousMovie: MarkdownItem | null
-  nextMovie: MarkdownItem | null
+  movie: IContent
+  previousMovie: IContent | null
+  nextMovie: IContent | null
 }> = ({ movie, previousMovie, nextMovie }) => {
   const [quoteState, setQuoteState] = useState({
     displayedQuote: 0,
@@ -174,13 +174,13 @@ const MoviePage: React.FC<{
           />
         </Head>
         <BoxWithBgGradient img={bannerImage}>
-          <Heading type="h1" position="relative">
+          <Heading as="h1" position="relative">
             <span>{title.romaji}</span>
             <JapaneseHeading positionX="0" positionY="25">
               {title.native}
             </JapaneseHeading>
           </Heading>
-          <Heading type="h4" py={3}>
+          <Heading as="h4" py={3}>
             {preface}
           </Heading>
           <Box>
@@ -228,7 +228,7 @@ const MoviePage: React.FC<{
             py={20}
           >
             <Box>
-              <Heading type="h1" position="relative" pb={4}>
+              <Heading as="h1" position="relative" pb={4}>
                 stinky main characters
                 <JapaneseHeading positionX="0" positionY="25">
                   ボボ の 電波な奴
@@ -255,7 +255,7 @@ const MoviePage: React.FC<{
                       alt={char.node.name.first}
                       src={char.node.image.large}
                     />
-                    <Heading type="h5" py={2}>
+                    <Heading as="h5" py={2}>
                       {char.node.name?.first} <br /> {char.node.name?.last}
                     </Heading>
                   </Box>
@@ -264,7 +264,7 @@ const MoviePage: React.FC<{
             </Box>
 
             <Box>
-              <Heading type="h1" position="relative" pb={4}>
+              <Heading as="h1" position="relative" pb={4}>
                 amazing humans who did this
                 <JapaneseHeading positionX="0" positionY="25">
                   ボボ の 電波な奴
@@ -302,16 +302,15 @@ const MoviePage: React.FC<{
           </Box>
 
           <Box py={20}>
-            <Heading type="h1" position="relative">
+            <Heading as="h1" position="relative">
               <span>bobo&apos;s ramblings</span>
               <JapaneseHeading positionX="0" positionY="25">
                 ボボ の 電波な奴
               </JapaneseHeading>
             </Heading>
-            <ReactMarkdown
-              children={content}
-              components={{ img: () => Image }}
-            />
+            <ReactMarkdown components={{ img: () => Image }}>
+              {content}
+            </ReactMarkdown>
           </Box>
 
           <Box
@@ -360,7 +359,7 @@ const MoviePage: React.FC<{
                     }
                     onClick={() => handleBtnQuotes(true)}
                   >
-                    <RightArrowAlt fontSize="default" />
+                    <RightArrow fontSize="default" />
                   </QuoteButton>
                 </Box>
               </Box>
@@ -459,14 +458,7 @@ const MoviePage: React.FC<{
               justifyContent="center"
               alignItems="center"
               flexDirection="row"
-            >
-              <TwitterShareButton url="{}" title="" via="" hashtags={[]}>
-                <Twitter size="2rem" />
-              </TwitterShareButton>
-              <FacebookShareButton url="{}" quote="" hashtag="">
-                <FacebookCircle size="2rem" />
-              </FacebookShareButton>
-            </Box>
+            ></Box>
           </Box>
 
           <Box display="flex" justifyContent="space-between">
@@ -479,7 +471,7 @@ const MoviePage: React.FC<{
                 <NextPrevButton>
                   <Link href={`movies/${previousMovie}`}>
                     <a>
-                      <LeftArrowAlt />
+                      <LeftArrow />
                       <span>Previous movie</span>
                     </a>
                   </Link>
@@ -497,7 +489,7 @@ const MoviePage: React.FC<{
                   <a>
                     <NextPrevButton>
                       <span className="mr-1">Next movie</span>
-                      <RightArrowAlt fontSize="default" />
+                      <RightArrow fontSize="default" />
                     </NextPrevButton>
                   </a>
                 </Link>
