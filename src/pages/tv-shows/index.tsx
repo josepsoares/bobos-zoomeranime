@@ -50,16 +50,25 @@ const filterObj = {
   'date-desc': 'Data ▾'
 }
 
-const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
-  movies,
+interface IState {
+  page: number
+  perPage: number
+  allTvShows: IContent[]
+  displayedTvShows: IContent[] | []
+  filter: { value: string; label: string }
+  filterOrder: { value: string; label: string }
+}
+
+const TvShowsList: NextPage<{ tvShows: IContent[]; maxPage: number }> = ({
+  tvShows,
   maxPage
 }) => {
-  const moviesPerPage = 8
+  const tvShowsPerPage = 8
 
   // state
   const [intersectionRef, setIntersectionRef] = useState(null)
   const [didIntersect, setDidIntersect] = useState(false)
-  const [displayedMovies, setDisplayedMovies] = useState<IContent[]>([])
+  const [displayedTvShows, setDisplayedTvShows] = useState<IContent[]>([])
   const [pageNum, setPageNum] = useState(1)
   const [filter, setFilter] = useState('name-asc')
 
@@ -80,8 +89,8 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
    * according to the page number
    */
   const calculatePage = (caculateResults: IContent[], index: number) => {
-    const indexOfLastResults = index * moviesPerPage
-    const indexOfFirstResults = indexOfLastResults - moviesPerPage
+    const indexOfLastResults = index * tvShowsPerPage
+    const indexOfFirstResults = indexOfLastResults - tvShowsPerPage
     const currentResults = caculateResults.slice(
       indexOfFirstResults,
       indexOfLastResults
@@ -93,8 +102,8 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
    * func to reorder the displayed iteems arrray according to the
    * value chosen in the select by the user
    */
-  const reorderDisplayedMovies = (order: string) => {
-    const updateDisplayedMovies = displayedMovies.sort((a, b) => {
+  const reorderDisplayedTvShows = (order: string) => {
+    const updateDisplayedTvShows = displayedTvShows.sort((a, b) => {
       if (order === 'name-asc') {
         return a.title < b.title ? -1 : 1
       } else if (order === 'name-desc') {
@@ -114,14 +123,14 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
       }
     })
 
-    setDisplayedMovies(updateDisplayedMovies)
+    setDisplayedTvShows(updateDisplayedTvShows)
   }
 
   /**
    * set displayed movies onmount
    */
   useEffect(() => {
-    setDisplayedMovies(calculatePage(movies, 1))
+    setDisplayedTvShows(calculatePage(tvShows, 1))
   }, [])
 
   /**
@@ -148,8 +157,8 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
     if (didIntersect) {
       const updatedPageNum = add(pageNum, 1)
       if (updatedPageNum <= maxPage) {
-        setDisplayedMovies(
-          displayedMovies.concat(calculatePage(movies, updatedPageNum))
+        setDisplayedTvShows(
+          displayedTvShows.concat(calculatePage(tvShows, updatedPageNum))
         )
         setPageNum(updatedPageNum)
       } else {
@@ -161,14 +170,14 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
   return (
     <>
       <SEO
-        title="movies"
+        title="tv shows"
         description="bobo's list of favourite zoomer japanese movie animations"
       />
 
       <BoxWithBgGradient img="/assets/images/movie-theatre.jpg">
         <Heading as="h1" align="center">
-          <span>movies</span>
-          <JapaneseHeading css={{ left: 0, top: '-25%' }}>映画</JapaneseHeading>
+          <span>tv shows</span>
+          <JapaneseHeading>テレビ番組</JapaneseHeading>
         </Heading>
 
         <Text align="center" css={{ pb: '$6' }}>
@@ -192,10 +201,10 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
             value={filter}
             onValueChange={val => {
               setFilter(val)
-              reorderDisplayedMovies(val)
+              reorderDisplayedTvShows(val)
             }}
           >
-            <SelectTrigger aria-label="Ordem dos filmes">
+            <SelectTrigger aria-label="Food">
               <Select.Value aria-label={filter}>
                 {filterObj[filter]}
               </Select.Value>
@@ -260,12 +269,12 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
             '@bp3': { gridTemplateColumns: 'repeat(4, 1fr)' }
           }}
         >
-          {displayedMovies.map((item: IContent, index: number) => (
+          {displayedTvShows.map((item: IContent, index: number) => (
             <Link
               key={index}
-              href={`movies/${item.id}`}
+              href={`tv-shows/${item.id}`}
               ref={
-                index === displayedMovies.length - 1 && pageNum <= maxPage
+                index === displayedTvShows.length - 1 && pageNum <= maxPage
                   ? setIntersectionRef
                   : null
               }
@@ -286,14 +295,14 @@ const MoviesList: NextPage<{ movies: IContent[]; maxPage: number }> = ({
 
 export const getStaticProps: GetStaticProps = async () => {
   const perPage = 10
-  const moviesDirectory = path.join(process.cwd(), 'src/content/movies')
-  const fileNames = fs.readdirSync(moviesDirectory)
-  const totalMovies = fileNames.length
+  const tvShowsDirectory = path.join(process.cwd(), 'src/content/tv-shows')
+  const fileNames = fs.readdirSync(tvShowsDirectory)
+  const totalTvShows = fileNames.length
 
-  const allMoviesData: IContent[] = fileNames.map(fileName => {
+  const allTvShowsData: IContent[] = fileNames.map(fileName => {
     const id = fileName.replace(/\.md$/, '')
 
-    const fullPath = path.join(moviesDirectory, fileName)
+    const fullPath = path.join(tvShowsDirectory, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
 
     const matterResult = matter(fileContents)
@@ -309,10 +318,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      movies: allMoviesData.sort((a, b) => (a.title < b.title ? -1 : 1)),
-      maxPage: Math.ceil(totalMovies / perPage)
+      tvShows: allTvShowsData.sort((a, b) => (a.title < b.title ? -1 : 1)),
+      maxPage: Math.ceil(totalTvShows / perPage)
     }
   }
 }
 
-export default MoviesList
+export default TvShowsList

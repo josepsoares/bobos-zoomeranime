@@ -1,7 +1,21 @@
 import Head from 'next/head'
-import seoConfig from 'utils/config/seoConfig'
+import seoConfig from '@utils/config/seo.config'
 
-export default function SEO({ description, title, image, slug, article }) {
+interface ISeoProps {
+  description?: string
+  title?: string
+  image?: string
+  slug?: string
+  article?: string
+}
+
+const SEO: React.FC<ISeoProps> = ({
+  description,
+  title,
+  image,
+  slug,
+  article
+}) => {
   const {
     originalTitle,
     originalDescription,
@@ -10,12 +24,41 @@ export default function SEO({ description, title, image, slug, article }) {
     currentURL,
     originalImage
   } = seoConfig
+
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
       <title>{`${title} | ${originalTitle}`}</title>
+
+      {/* favicon stuff */}
+      <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/favicons/apple-touch-icon.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicons/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicons/favicon-16x16.png"
+      />
+      <link rel="manifest" href="/site.webmanifest" />
+      <link
+        rel="mask-icon"
+        href="/favicons/safari-pinned-tab.svg"
+        color="#2f4550"
+      />
       <meta name="msapplication-TileColor" content="#2f4550" />
+      <meta name="theme-color" content="#2f4550" />
+
+      {/* social media stuff */}
       <meta
         name="description"
         content={`${description || originalDescription}`}
@@ -68,3 +111,5 @@ export default function SEO({ description, title, image, slug, article }) {
     </Head>
   )
 }
+
+export default SEO

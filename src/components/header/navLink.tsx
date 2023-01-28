@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { styled } from '@stitches/react'
+import { styled } from '@styles/stitches.config'
 
 const NavLinkEl = styled(Link, {
   outline: 0,
@@ -21,21 +21,31 @@ const NavLinkEl = styled(Link, {
   fontWeight: 'normal',
   color: '#fff',
 
+  svg: {
+    fill: '$lightBlue'
+  },
+
   '@bp4': {
     py: '$4',
     px: '$6'
   },
 
   '&:hover, &:active': {
-    color: '$lightPurple',
-    backgroundColor: '#586f7c9a'
+    color: '$lightPurple !important',
+    '& svg': {
+      fill: '$mediumBlue'
+    }
   },
 
   variants: {
     active: {
       true: {
         fontWeight: 'bold',
-        color: '$lightPurple'
+        color: '$lightBlue !important ',
+
+        svg: {
+          fill: '$lightPurple'
+        }
       }
     }
   }

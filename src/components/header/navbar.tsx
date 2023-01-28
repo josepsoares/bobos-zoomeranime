@@ -1,75 +1,116 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { styled } from '@stitches/react'
+import { styled } from '@styles/stitches.config'
 
 import Box from '@components/primitives/box'
 import NavLink from '@components/header/navLink'
 import JapaneseHeading from '@components/japaneseHeading'
 
 // icons
-import Movie from 'assets/icons/bxs-movie.svg'
-import Tv from 'assets/icons/bx-tv.svg'
+import Movie from '@icons/bxs-movie.svg'
+import Tv from '@icons/bx-tv.svg'
 
-// TODO - nav
+const Nav = styled('nav', {
+  width: '100%',
+  left: 0,
 
-const Nav = styled("nav",<{ pos: string; opc: string; mb: string }>`
-  width: 100%;
-  position: ${props => props.pos};
-  margin-bottom: ${props => props.mb};
-  left: 0;
-  background-color: ${props => `rgba(47, 69, 80, ${props.opc})`};
+  '&::before': {
+    width: '100%',
+    height: '20rem'
+  },
 
-  &::before {
-    width: 100%;
-    height: 20rem;
-    margin-bottom: ${props => props.mb};
+  variants: {
+    bg: {
+      transparent: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        marginBottom: '$24',
+        '&::before': {
+          marginBottom: '$24'
+        }
+      },
+      solid: {
+        backgroundColor: 'rgba(47, 69, 80, 0.8)',
+        position: 'static',
+        marginBottom: '$8',
+        '&::before': {
+          width: '100%',
+          height: '20rem',
+          marginBottom: '$8'
+        }
+      }
+    }
   }
-`)
-
-// TODO - nav list
+})
 
 const NavList = styled('div', {
-  width: 85%;
-  margin: 2.25rem auto;
-  justify-content: center;
-  align-items: center;
-  @media ${({ theme }) => theme.mediaQueries.sm} {
-    width: 83%;
-  }
-  display: flex;
-  gap: ${({ theme }) => theme.spacing[10]};
-  a:last-child {
-    margin-right: 0 !important;
+  width: '85%',
+  margin: '2.25rem auto',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '$10',
+
+  '@bp2': {
+    width: '75%'
+  },
+
+  '@bp3': {
+    width: '65%'
+  },
+
+  'a:last-child': {
+    mr: 0
   }
 })
 
 const NavigationBar: React.FC = () => {
   const router = useRouter()
-  console.log(router.pathname)
 
   // /movies /tv-series /movies/... /movies/[movie]
+  console.log(router.pathname)
   const isAbAndTransparent =
     router.pathname !== '/' &&
-    router.pathname !== '/404' && 
+    router.pathname !== '/404' &&
     router.pathname !== '/500'
 
-  const position = isAbAndTransparent ? 'absolute' : 'static'
-  const marginBottom = isAbAndTransparent ? '6rem' : '2rem'
-  const opacity = isAbAndTransparent ? '0.5' : '0.8'
-
   return (
-    <Nav pos={position} mb={marginBottom} opc={opacity}>
-      
-          
-        <NavList>
+    <Nav bg={isAbAndTransparent ? 'transparent' : 'solid'}>
+      <NavList>
+        <Box>
+          <Link href="/" passHref>
+            <h2 style={{ padding: 0, margin: 0 }} className="FirstNavTitle">
+              bobo's
+            </h2>
+            <h2 style={{ padding: 0, margin: 0 }} className="SecondNavTitle">
+              zoomer<b>anime</b>
+            </h2>
+          </Link>
+        </Box>
+
+        <Box
+          css={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'center'
+          }}
+        >
           <NavLink
             href="/movies"
             component={
-              <Box display="flex" flexDirection="column" alignItems="center">
+              <Box
+                css={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
                 <Movie style={{ marginBottom: '0.2rem' }} size="1.85rem" />
-                <Box pb={2} position="relative">
+                <Box css={{ pb: '$2', position: 'relative' }}>
                   <span>movies</span>
-                  <JapaneseHeading positionX="0" positionY="40">
+                  <JapaneseHeading css={{ left: 0, top: 5 }}>
                     映画
                   </JapaneseHeading>
                 </Box>
@@ -77,33 +118,28 @@ const NavigationBar: React.FC = () => {
             }
           />
 
-          <Link href="/" passHref>
-            <a>
-              <h2 style={{ padding: 0, margin: 0 }} className="FirstNavTitle">
-                bobo's
-              </h2>
-              <h2 style={{ padding: 0, margin: 0 }} className="SecondNavTitle">
-                zoomer<b>anime</b>
-              </h2>
-            </a>
-          </Link>
-
           <NavLink
-            href="/tv-series"
+            href="/tv-shows"
             component={
-              <Box display="flex" flexDirection="column" alignItems="center">
+              <Box
+                css={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}
+              >
                 <Tv style={{ marginBottom: '0.2rem' }} size="1.85rem" />
-                <Box pb={2} position="relative">
-                  <span>tv series</span>
-                  <JapaneseHeading positionX="0" positionY="40">
+                <Box css={{ pb: '$2', position: 'relative' }}>
+                  <span>tv shows</span>
+                  <JapaneseHeading css={{ left: 0, top: 5 }}>
                     テレビ番組
                   </JapaneseHeading>
                 </Box>
               </Box>
             }
           />
-        </NavList>
-    
+        </Box>
+      </NavList>
     </Nav>
   )
 }

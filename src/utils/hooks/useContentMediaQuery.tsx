@@ -1,9 +1,8 @@
-import useSWR from 'swr'
-import { Fetcher } from 'swr/dist/types'
-import MediaItem from 'utils/ts/interfaces/MediaItem'
+import { useQuery } from 'react-query'
+import type IContent from '@utils/ts/IContent'
+import { IMediaItem } from '@utils/ts/aniListApiTypes'
 
-const fetcher: Fetcher<MediaItem> = async (search: string) => {
-  console.log(search)
+const fetcher = async (search: string): Promise<IMediaItem> => {
   const query = {
     method: 'POST',
     headers: {
@@ -11,11 +10,8 @@ const fetcher: Fetcher<MediaItem> = async (search: string) => {
       Accept: 'application/json'
     },
     body: JSON.stringify({
-      query:
-        `query {
-            Media (search: "` +
-        search +
-        `", type: ANIME) {
+      query: `query {
+            Media (search: "${search}", type: ANIME) {
                 title{
                     romaji
                     native
@@ -95,14 +91,17 @@ const fetcher: Fetcher<MediaItem> = async (search: string) => {
 
   const request = await fetch('https://graphql.anilist.co', query)
   const getData = await request.json()
-  // console.log('data =>', data)
+
   return getData.data
 }
 
-export const useMedia = (
+export const useContentMediaQuery = (
   searchTitle: string
-): { isLoading: boolean; data: MediaItem; error: string } => {
-  const { data, error } = useSWR<MediaItem, string>(searchTitle, fetcher)
+): { isLoading: boolean; data: IMediaItem; error: unknown } => {
+  const { data, error } = useQuery({
+    queryKey: ['content', searchTitle],
+    queryFn: () => fetcher(searchTitle)
+  })
 
   return { isLoading: !error && !data, data, error }
 }

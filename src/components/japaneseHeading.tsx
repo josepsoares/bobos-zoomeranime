@@ -1,7 +1,7 @@
-import { styled } from '@stitches/react'
-
 // props.theme.colors.mediumBlue
 // props.theme.colors[props.color]
+
+import { styled } from '@styles/stitches.config'
 
 const JapaneseHeading = styled('span', {
   $$left: '40%',

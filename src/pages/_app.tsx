@@ -1,21 +1,24 @@
 import { useEffect, useState } from 'react'
-import { NextComponentType } from 'next'
-import { AppContext, AppInitialProps, AppProps } from 'next/app'
-import Head from 'next/head'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-
-import GlobalStyles from '@styles/global'
+import NextProgress from 'next-progress'
 
 import Header from '@components/header/navbar'
 import Box from '@components/primitives/box'
 import Footer from '@components/footer'
-import GoTopButton from '@components/buttons/goToTopButton'
+import GoTopButton from '@components/goToTopButton'
+
+import globalStyles from '@styles/global'
+
+// types
+import type { AppContext, AppInitialProps, AppProps } from 'next/app'
+import type { NextComponentType } from 'next'
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
   Component,
   pageProps,
   router
 }) => {
+  globalStyles()
   const [queryClient] = useState(() => new QueryClient())
 
   useEffect(() => {
@@ -30,34 +33,9 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps> = ({
 
   return (
     <>
-      <Head>
-        <title>bobo's zoomeranime</title>
-        <meta charSet="utf-8" />
-        <meta
-          name="description"
-          content="bobo's webpage to ramble about his favourite zoomer japanese animations"
-        />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta
-          property="og:site_name"
-          content="bobo's zoomeranime"
-          key="ogsitename"
-        />
-        <meta name="msapplication-TileColor" content="#2f4550" />
-        <meta
-          property="og:url"
-          content="https://boboszoomeranime.now.sh/"
-          key="ogurl"
-        />
-        <meta
-          name="twitter:creator"
-          content="bobo's zoomeranime"
-          key="twhandle"
-        />
-      </Head>
+      <NextProgress options={{ showSpinner: false }} color="#b8dbd9" />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <GlobalStyles />
           <main>
             <Box
               css={{

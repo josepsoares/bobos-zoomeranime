@@ -10,8 +10,11 @@ const Container: React.FC<{
         '@bp1': {
           width: '85%'
         },
+        '@bp2': {
+          width: '83%'
+        },
         '@bp4': {
-          width: '82.5%'
+          width: '75%'
         }
       }}
     >

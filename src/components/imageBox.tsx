@@ -1,12 +1,10 @@
-import { styled } from '@stitches/react'
+import { styled } from '@styles/stitches.config'
 
 const ImageBoxEl = styled('div', {
-  $$h: '45vh',
   position: 'relative',
   padding: 0,
   opacity: 1,
   width: '100%',
-  height: '$$h',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   boxShadow: '$black',
@@ -60,7 +58,7 @@ const ImageBoxEl = styled('div', {
       fontWeight: 'normal',
       position: 'absolute',
       fontSize: '$xl4',
-      transform: 'translate(0%, 8%)'
+      transform: 'translate(0%, 0%)'
     }
   }
 })
@@ -74,8 +72,11 @@ const ImageBox: React.FC<{
   return (
     <ImageBoxEl
       css={{
-        h,
-        backgroundImage: `url(${image})`
+        height: h,
+        backgroundImage: `url(${image})`,
+        '& > aside': {
+          height: h
+        }
       }}
     >
       <aside>

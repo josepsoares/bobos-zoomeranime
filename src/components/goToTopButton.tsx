@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
-import { styled } from '@stitches/react'
+import { styled } from '@styles/stitches.config'
 
-import UpArrow from 'assets/icons/bx-up-arrow.svg'
+import UpArrow from '@icons/bx-up-arrow.svg'
 
 const GoTopButtonEl = styled('button', {
   cursor: 'pointer',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  width: '48px',
-  height: '48px',
+  width: '40px',
+  height: '40px',
   border: '2px solid',
   borderColor: '$lightPurple',
   backgroundColor: '$black',
@@ -18,21 +18,20 @@ const GoTopButtonEl = styled('button', {
   position: 'fixed',
   left: '82.5%',
   top: '90%',
-  borderRadius: '50%',
   transition: '$normal',
   boxShadow: '$black',
 
   svg: {
     transition: '$normal',
-    color: '$darkBlue'
+    fill: '$lightBlue'
   },
 
   '&:hover, &:active': {
     backgroundColor: '$darkBlue',
     boxShadow: '$lightPurple',
 
-    svg: {
-      color: '$lightBlue'
+    '& > svg': {
+      fill: '$lightPurple'
     }
   },
 
@@ -61,16 +60,15 @@ const GoTopButtonEl = styled('button', {
 
 const GoTopButton: React.FC = () => {
   const [threshold, setThreshold] = useState(false)
-  const { width } = useWindowSize()
 
   useEffect(() => {
     window.addEventListener('scroll', () =>
-      setThreshold(() => (width >= 650 ? true : false))
+      setThreshold(window.scrollY >= 650 ? true : false)
     )
 
     return () => {
       window.removeEventListener('scroll', () =>
-        setThreshold(() => (width >= 650 ? true : false))
+        setThreshold(window.scrollY >= 650 ? true : false)
       )
     }
   }, [])

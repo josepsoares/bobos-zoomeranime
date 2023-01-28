@@ -1,19 +1,25 @@
-import { animated } from '@react-spring/web'
-import { styled } from '@stitches/react'
+import { styled } from '@styles/stitches.config'
+import { motion } from 'framer-motion'
 
-const Text = styled(animated.p, {
+const Text = styled(motion.p, {
   fontFamily: '$openSans',
 
   variants: {
     size: {
-      1: {
-        fontSize: '$1'
+      xs: {
+        fontSize: '$xs'
       },
-      2: {
-        fontSize: '$2'
+      sm: {
+        fontSize: '$sm'
       },
-      3: {
-        fontSize: '$3'
+      md: {
+        fontSize: '$md'
+      },
+      lg: {
+        fontSize: '$lg'
+      },
+      xl: {
+        fontSize: '$xl'
       }
     },
     weight: {
@@ -26,7 +32,21 @@ const Text = styled(animated.p, {
       bold: {
         fontWeight: 'bold'
       }
+    },
+    align: {
+      center: {
+        textAlign: 'center'
+      },
+      left: {
+        textAlign: 'left'
+      },
+      right: {
+        textAlign: 'right'
+      }
     }
+  },
+  defaultVariants: {
+    align: 'left'
   }
 })
 

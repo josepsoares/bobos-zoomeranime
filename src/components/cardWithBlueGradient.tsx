@@ -1,10 +1,10 @@
-import { styled } from '@stitches/react'
 import { animated } from '@react-spring/web'
+import { styled } from '@styles/stitches.config'
 
 const BlueGradientContainer = styled(animated.div, {
   padding: '1.85rem 0',
   width: '100%',
-  marginBottom: '2rem',
+  mb: '2rem',
   backgroundImage: '$blueGradient',
   boxShadow: '$black',
 

@@ -37,11 +37,11 @@ import Star from '@icons/bxs-star.svg'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import type IContent from '@utils/ts/IContent'
 
-const MoviePage: React.FC<{
-  movie: IContent
-  previousMovie: IContent | null
-  nextMovie: IContent | null
-}> = ({ movie, previousMovie, nextMovie }) => {
+const TvShowPage: React.FC<{
+  tvShow: IContent
+  previousTvShow: IContent | null
+  nextTvShow: IContent | null
+}> = ({ tvShow, previousTvShow, nextTvShow }) => {
   const router = useRouter()
   const {
     content,
@@ -51,9 +51,9 @@ const MoviePage: React.FC<{
     preface,
     rating,
     releaseDate
-  } = movie
+  } = tvShow
 
-  const { isLoading, data, error } = useContentMediaQuery(movie.title)
+  const { isLoading, data, error } = useContentMediaQuery(tvShow.title)
 
   if (isLoading) {
     return <Loading />
@@ -217,7 +217,7 @@ const MoviePage: React.FC<{
           />
 
           <Box css={{ display: 'flex', justifyContent: 'space-between' }}>
-            {previousMovie && (
+            {previousTvShow && (
               <Box
                 css={{
                   display: 'flex',
@@ -226,21 +226,21 @@ const MoviePage: React.FC<{
                     justifyContent: 'center'
                   },
                   '@bp2': {
-                    w: nextMovie ? 'auto' : '100%',
+                    w: nextTvShow ? 'auto' : '100%',
                     justifyContent: 'flex-start'
                   }
                 }}
               >
                 <Button>
-                  <Link href={`movies/${previousMovie}`}>
+                  <Link href={`movies/${previousTvShow}`}>
                     <LeftArrow />
-                    <span>Previous movie</span>
+                    <span>Previous series</span>
                   </Link>
                 </Button>
               </Box>
             )}
 
-            {nextMovie && (
+            {nextTvShow && (
               <Box
                 css={{
                   display: 'flex',
@@ -249,14 +249,14 @@ const MoviePage: React.FC<{
                     justifyContent: 'center'
                   },
                   '@bp2': {
-                    w: previousMovie ? 'auto' : '100%',
+                    w: previousTvShow ? 'auto' : '100%',
                     justifyContent: 'flex-start'
                   }
                 }}
               >
-                <Link href={`movies/${nextMovie}`}>
+                <Link href={`tv-shows/${nextTvShow}`}>
                   <Button>
-                    <span className="mr-1">Next movie</span>
+                    <span className="mr-1">Next series</span>
                     <RightArrow />
                   </Button>
                 </Link>
@@ -270,10 +270,10 @@ const MoviePage: React.FC<{
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync('src/content/movies', 'utf-8')
+  const files = fs.readdirSync('src/content/tv-shows', 'utf-8')
   const paths = files.map(fileName => ({
     params: {
-      movie: fileName.replace(/\.md$/, '')
+      tvshow: fileName.replace(/\.md$/, '')
     }
   }))
 
@@ -283,16 +283,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params: { movie } }) => {
-  const currentMovieDirectory = path.join('src/content/movies', `${movie}.md`)
+export const getStaticProps: GetStaticProps = async ({
+  params: { tvshow }
+}) => {
+  const currentMovieDirectory = path.join(
+    'src/content/tv-shows',
+    `${tvshow}.md`
+  )
   const contents = fs.readFileSync(currentMovieDirectory, 'utf8')
   const parsedContents = matter(contents)
   delete parsedContents.orig
 
-  const moviesDirectory = path.join(process.cwd(), 'src/content/movies')
+  const moviesDirectory = path.join(process.cwd(), 'src/content/tv-shows')
   const fileNames = fs.readdirSync(moviesDirectory)
 
-  const allMovies = fileNames
+  const allSeries = fileNames
     .map(fileName => {
       const id = fileName.replace(/\.md$/, '')
 
@@ -310,28 +315,31 @@ export const getStaticProps: GetStaticProps = async ({ params: { movie } }) => {
       }
     })
 
-  const movieIndex = allMovies.findIndex(item => item.id === movie)
+  const tvserieIndex = allSeries.findIndex(item => item.id === tvshow)
 
   const subtract = (a: number, b: number) => a - b
   const add = (a: number, b: number) => a - b
 
-  const previousMovie = movieIndex > 0 ? allMovies[add(movieIndex, 1)] : null
+  const previousSeries =
+    tvserieIndex > 0 ? allSeries[add(tvserieIndex, 1)] : null
 
-  const nextMovie =
-    movieIndex < allMovies.length ? allMovies[subtract(movieIndex, 1)] : null
+  const nextSeries =
+    tvserieIndex < allSeries.length
+      ? allSeries[subtract(tvserieIndex, 1)]
+      : null
 
   return {
     props: {
-      movie: {
-        id: movieIndex,
+      tvShow: {
+        id: tvserieIndex,
         content: parsedContents.content,
         excerpt: parsedContents.excerpt,
         ...parsedContents.data
       },
-      previousMovie,
-      nextMovie
+      previousSeries,
+      nextSeries
     }
   }
 }
 
-export default MoviePage
+export default TvShowPage

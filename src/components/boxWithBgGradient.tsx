@@ -1,10 +1,10 @@
-import { NextPage } from 'next'
-import { styled } from '@stitches/react'
+import type { FC, ReactNode } from 'react'
+import { styled } from '@styles/stitches.config'
 
 const BoxGradientBgEl = styled('div', {
   marginBottom: '$6',
-  paddingTop: '25rem',
-  paddingBottom: '10rem',
+  paddingTop: '17.5rem',
+  paddingBottom: '15rem',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -30,9 +30,10 @@ const BoxGradientBgEl = styled('div', {
 
 interface Props {
   img: string
+  children?: ReactNode
 }
 
-const BoxGradientBg: NextPage = (props: Props) => {
+const BoxGradientBg: FC<Props> = props => {
   return (
     <BoxGradientBgEl
       css={{
@@ -40,7 +41,9 @@ const BoxGradientBg: NextPage = (props: Props) => {
           backgroundImage: `linear-gradient(to bottom, rgba(255, 192, 203, 0.4) 0%, rgba(255, 192, 203, 0.2) 30%, #1919197d 80%, #191919 90%), url(${props.img})`
         }
       }}
-    />
+    >
+      {props.children}
+    </BoxGradientBgEl>
   )
 }
 

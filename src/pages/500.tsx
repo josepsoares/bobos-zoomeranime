@@ -32,9 +32,7 @@ const NoMatch: React.FC = () => {
             <h1>error 500</h1>
             <h4>página não encontrada</h4>
           </Box>
-          <Link href="/">
-            <a>voltar à página inicial</a>
-          </Link>
+          <Link href="/">voltar à página inicial</Link>
         </Box>
       </Container>
     </>

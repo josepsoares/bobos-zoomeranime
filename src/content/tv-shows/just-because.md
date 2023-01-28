@@ -1,8 +1,8 @@
 ---
-title: 'Kakushigoto'
-nativeTitle: 'かくしごと'
-img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b115925-fRprxedJQLx5.jpg'
-releaseDate: '02/04/2020'
+title: 'Just Because!'
+nativeTitle: 'Just Because！'
+img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98820-EVHeNEUOWkh3.jpg'
+releaseDate: '05/10/2017'
 preface: 'string'
 evaluation: { animation: 3, soundtrack: 3, narrative: 3, characters: 3 }
 rating: { illus: 'pikachu-test.png', text: 'string' }
@@ -11,7 +11,7 @@ characterQuotes:
     ['First item', ''],
     ['Second item', ''],
     [3. Third item, ''],
-    [4. Fourth item, ''],
+    [4. Fourth item, '']
   ]
 ---
 

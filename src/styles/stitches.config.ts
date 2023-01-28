@@ -10,8 +10,16 @@ export const {
   theme
 } = createStitches({
   theme: {
-    // TODO - set correct colors
     colors: {
+      slate: '#191919',
+      lightGrey: '#f4f4f9',
+      lightBlue: '#b8dbd9',
+      mediumBlue: '#afdbd2',
+      darkBlue: '#2f4550',
+      lightPurple: '#c79bb2',
+      darkPurple: '#5f3766',
+      blueGradient: 'linear-gradient(60deg, #29323c 0%, #485563 100%)',
+
       hiContrast: 'hsl(206,10%,5%)',
       loContrast: 'white',
 
@@ -338,13 +346,14 @@ export const {
     })
   },
   media: {
-    bp1: `@media (min-width: 520px)`,
-    bp2: `@media (min-width: 900px)`,
-    bp3: `@media (min-width: 1200px)`,
-    bp4: `@media (min-width: 1800px)`,
-    motion: `@media (prefers-reduced-motion)`,
-    hover: `@media (hover: hover)`,
-    dark: `@media (prefers-color-scheme: dark)`,
-    light: `@media (prefers-color-scheme: light)`
-  }
+    bp1: `(min-width: 520px)`,
+    bp2: `(min-width: 900px)`,
+    bp3: `(min-width: 1200px)`,
+    bp4: `(min-width: 1800px)`,
+    motion: `(prefers-reduced-motion)`,
+    hover: `(hover: hover)`,
+    dark: `(prefers-color-scheme: dark)`,
+    light: `(prefers-color-scheme: light)`
+  },
+  prefix: 'radix'
 })

@@ -1,4 +1,4 @@
-import { styled } from '@stitches/react'
+import { styled } from '@styles/stitches.config'
 
 const FooterEl = styled('footer', {
   display: 'flex',
@@ -9,8 +9,12 @@ const FooterEl = styled('footer', {
   padding: '2.25rem 0',
 
   '& > p': {
-    color: '$gray400',
-    fontSize: '$sm'
+    color: '$gray900',
+    fontSize: '$xs'
+  },
+
+  '& a': {
+    textDecoration: 'underline'
   }
 })
 
