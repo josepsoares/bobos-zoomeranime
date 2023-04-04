@@ -1,30 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# bobo's zoomeranime
 
-## Getting Started
+![pnpm](https://img.shields.io/badge/pnpm-F69220.svg?style=for-the-badge&logo=pnpm&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![Astro](https://img.shields.io/badge/Astro-FF5D01.svg?style=for-the-badge&logo=Astro&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF.svg?style=for-the-badge&logo=Vite&logoColor=white) ![Vue](https://img.shields.io/badge/Vue.js-4FC08D.svg?style=for-the-badge&logo=vuedotjs&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![HeadlessUI](https://img.shields.io/badge/Headless%20UI-66E3FF.svg?style=for-the-badge&logo=Headless-UI&logoColor=black) ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white) ![Prettier](https://img.shields.io/badge/Prettier-F7B93E.svg?style=for-the-badge&logo=Prettier&logoColor=black)
 
-First, run the development server:
+## about
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+this is the repo of a simple blog built with nextjs for the fictional character bobo write some silly stuff about some (somewhat) obscure, zoomer, japanese cartoons. sugoi desu ne 🏯
+you can also check the other bobo website - [bobo's blog](). 📚
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+the language of this website is portuguese (PT-PT)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## requirements
 
-## Learn More
+- [git](https://git-scm.com)
+- [node.js v16^](https://nodejs.org/en/)
+- [pnpm](https://pnpm.io/)
 
-To learn more about Next.js, take a look at the following resources:
+## deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[josepsoares](https://josepsoares.vercel.app/)

@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+import Layout from "@layouts/Layout.astro";
+import MoviesList from "@components/content/lists/moviesList.vue";
+import JpHeading from "@components/jpHeading.vue";
+import BgGradientBox from "@components/BgGradientBox.vue";
+
+dayjs.extend(customParseFormat);
+
+const getMovies = await getCollection("movies");
+const sortedMovies = getMovies.sort((a, b) =>
+  dayjs(a.data.releaseDate, "DD/MM/YYYY").isBefore(
+    dayjs(b.data.releaseDate, "DD/MM/YYYY")
+  )
+    ? 1
+    : -1
+);
+const moviesPerPage = Math.ceil(sortedMovies.length / 8);
+---
+
+<Layout title="Welcome to Astro.">
+  <BgGradientBox img="/assets/images/movie-theatre.jpg">
+    <h1>
+      <span>tv shows</span>
+      <JpHeading>テレビ番組</JpHeading>
+    </h1>
+
+    <p class="pb-6 text-center">"Lorem ipsum dolor sit amet,</p>
+  </BgGradientBox>
+
+  <MoviesList movies={sortedMovies} maxPage={moviesPerPage} />
+</Layout>

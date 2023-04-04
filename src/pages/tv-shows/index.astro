@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+import Layout from "@layouts/Layout.astro";
+import TvShowsList from "@components/content/lists/tvShowsList.vue";
+import JpHeading from "@components/jpHeading.vue";
+import BgGradientBox from "@components/BgGradientBox.vue";
+
+dayjs.extend(customParseFormat);
+
+const getTvShows = await getCollection("tv-shows");
+const sortedTvShows = getTvShows.sort((a, b) =>
+  dayjs(a.data.releaseDate, "DD/MM/YYYY").isBefore(
+    dayjs(b.data.releaseDate, "DD/MM/YYYY")
+  )
+    ? 1
+    : -1
+);
+const tvShowsPerPage = Math.ceil(sortedTvShows.length / 8);
+---
+
+<Layout title="Welcome to Astro.">
+  <BgGradientBox img="/assets/images/movie-theatre.jpg">
+    <h1>
+      <span>tv shows</span>
+      <JpHeading>テレビ番組</JpHeading>
+    </h1>
+
+    <p class="pb-6 text-center">"Lorem ipsum dolor sit amet,</p>
+  </BgGradientBox>
+
+  <TvShowsList client:only tvShows={sortedTvShows} maxPage={tvShowsPerPage} />
+</Layout>
