@@ -1,42 +1,60 @@
 {
   "name": "bobos-zoomeranime",
-  "version": "0.1.0",
+  "type": "module",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@formkit/auto-animate": "^1.0.0-beta.6",
-    "@radix-ui/react-select": "^1.2.0",
-    "@react-spring/web": "^9.6.1",
-    "@stitches/react": "^1.2.8",
+    "@astrojs/image": "^0.15.0",
+    "@astrojs/netlify": "^2.1.2",
+    "@astrojs/partytown": "^1.0.3",
+    "@astrojs/sitemap": "^1.0.1",
+    "@astrojs/tailwind": "^3.0.1",
+    "@astrojs/vue": "^2.0.1",
+    "@headlessui/tailwindcss": "^0.1.2",
+    "@headlessui/vue": "^1.7.10",
+    "@tanstack/vue-query": "^4.24.10",
+    "@vueuse/components": "^9.13.0",
+    "@vueuse/core": "^9.13.0",
+    "astro": "^2.0.4",
+    "astro-icon": "^0.8.0",
+    "clsx": "^1.2.1",
     "dayjs": "^1.11.7",
-    "framer-motion": "^8.5.2",
-    "lodash.samplesize": "^4.2.0",
-    "next": "^13.1.2",
-    "next-progress": "^2.2.0",
-    "react": "^18.2.0",
-    "react-device-detect": "^2.2.2",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.0",
-    "react-intersection-observer": "^9.4.1",
-    "react-markdown": "^8.0.5",
-    "react-query": "^3.39.2",
-    "react-use": "^17.4.0"
+    "reading-time": "^1.5.0",
+    "tailwind-variants": "^0.0.30",
+    "tailwindcss": "^3.0.24",
+    "vue": "^3.2.30"
   },
   "devDependencies": {
-    "@svgr/webpack": "^6.5.1",
-    "@types/lodash.samplesize": "^4.2.7",
-    "@types/node": "^18.11.18",
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "eslint": "^8.25.0",
-    "eslint-config-next": "^13.0.4",
-    "eslint-config-prettier": "^8.5.0",
-    "gray-matter": "^4.0.3",
-    "prettier": "^2.8.3",
-    "typescript": "^4.9.4"
+    "prettier": "^2.8.4",
+    "prettier-plugin-astro": "^0.8.0",
+    "prettier-plugin-tailwindcss": "^0.2.3",
+    "vite-svg-loader": "^4.0.0"
+  },
+  "prettier": {
+    "astroAllowShorthand": true,
+    "tabWidth": 2,
+    "useTabs": false,
+    "overrides": [
+      {
+        "files": "*.astro",
+        "options": {
+          "parser": "astro"
+        }
+      }
+    ],
+    "pluginSearchDirs": [
+      "."
+    ],
+    "plugins": [
+      "prettier-plugin-astro",
+      "prettier-plugin-tailwindcss"
+    ]
   }
 }

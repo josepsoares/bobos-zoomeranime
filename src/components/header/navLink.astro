@@ -1,0 +1,34 @@
+---
+import { tv } from "tailwind-variants";
+
+export interface Props {
+  href: string;
+}
+
+const { href: propHref } = Astro.props;
+const active = Astro.url.pathname === propHref;
+
+/* 
+"&:hover, &:active": {
+  color: "$lightPurple !important",
+    "& svg": {
+      fill: "$mediumBlue",
+  },
+}, 
+*/
+
+const navLink = tv({
+  base: "flex relative z-10 rounded-sm p-4 lg:px-6 gap-2 lowercase transition-all justify-center text-center  rounded-full active:opacity-80",
+  variants: {
+    active: {
+      true: "font-bold $lightBlue $lightPurple",
+      false: "font-normal text-white $lightBlue",
+    },
+  },
+  defaultVariants: { active: false },
+});
+---
+
+<a class={navLink({ active })} href={propHref}>
+  <slot />
+</a>

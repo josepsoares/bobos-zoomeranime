@@ -1,0 +1,63 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+
+import Layout from "@layouts/Layout.astro";
+import ImageBox from "@components/imageBox.vue";
+import JpHeading from "@components/jpHeading.vue";
+import { getRandomItemsFromArr } from "@utils/helpers";
+
+const getMovies = await getCollection("movies");
+const getRandomTvSeries = await getCollection("tv-shows");
+
+type TPreviewContent = CollectionEntry<"movies"> | CollectionEntry<"tv-shows">;
+
+const previewContents:
+  | CollectionEntry<"movies">
+  | CollectionEntry<"tv-shows">[] = [
+  ...getRandomItemsFromArr(getMovies, 2),
+  ...getRandomItemsFromArr(getRandomTvSeries, 2),
+];
+---
+
+<Layout title="Welcome to Astro.">
+  <div class="grid grid-cols-1 gap-2 pb-5 lg:grid-cols-2">
+    <div>
+      <p class="mb-0 pb-2">
+        sup, i'm an expert japanese cartoon watcher who writes some silly, short
+        and horrendous "essays" about animated japanese television shows and
+        movies which aired during the late nineties and the first decade of the
+        21th century.
+      </p>
+      <p>
+        I'll only talk about some shows or films I find worth exploring (and I
+        watched), without all the crazy spoilers.
+      </p>
+    </div>
+    <div>
+      <img
+        src="/assets/images/pikachu-test.png"
+        alt="teste"
+        width={100}
+        height={100}
+      />
+    </div>
+  </div>
+  <h1 class="text-center">
+    <span>featuring</span>
+    <JpHeading>テレビ番組</JpHeading>
+  </h1>
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    {
+      previewContents.map((item: TPreviewContent) => (
+        <a href={`/${item.collection}/${item.slug}`}>
+          <ImageBox
+            h="50vh"
+            image={item.data.img}
+            title={item.data.title}
+            nativeTitle={item.data.nativeTitle}
+          />
+        </a>
+      ))
+    }
+  </div>
+</Layout>

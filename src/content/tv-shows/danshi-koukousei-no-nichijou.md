@@ -1,18 +1,12 @@
 ---
-title: 'Danshi Koukousei no Nichijou'
-nativeTitle: '男子高校生の日常'
-img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx11843-KK3X2ccAlUwI.jpg'
-releaseDate: '10/01/2012'
-preface: 'string'
-evaluation: { animation: 3, soundtrack: 3, narrative: 3, characters: 3 }
-rating: { illus: 'pikachu-test.png', text: 'string' }
-characterQuotes:
-  [
-    ['First item', ''],
-    ['Second item', ''],
-    [3. Third item, ''],
-    [4. Fourth item, ''],
-  ]
+title: "Danshi Koukousei no Nichijou"
+nativeTitle: "男子高校生の日常"
+img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx11843-KK3X2ccAlUwI.jpg"
+releaseDate: "10/01/2012"
+preface: "string"
+scores: { animation: 3, soundtrack: 3, narrative: 3, characters: 3 }
+rating: { img: "pikachu-test.png", text: "string", overallScore: 1 }
+characterQuotes: [{ quote: "", character: "" }]
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et egestas quis ipsum suspendisse ultrices. Nunc sed blandit libero volutpat sed cras ornare arcu. Id faucibus nisl tincidunt eget nullam non nisi. Purus ut faucibus pulvinar elementum integer enim neque volutpat. Enim blandit volutpat maecenas volutpat. Orci phasellus egestas tellus rutrum tellus pellentesque eu. Sed vulputate odio ut enim blandit volutpat maecenas volutpat. Ipsum consequat nisl vel pretium lectus. Id ornare arcu odio ut.

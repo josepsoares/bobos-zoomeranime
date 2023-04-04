@@ -1,18 +1,12 @@
 ---
-title: 'Josee to Tora to Sakanatachi'
-nativeTitle: 'ジョゼと虎と魚たち'
-img: 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113596-LKA0bYJGjLnB.jpg'
-releaseDate: '25/12/2020'
-preface: 'string'
-evaluation: { animation: 3, soundtrack: 3, narrative: 3, characters: 3 }
-rating: { illus: 'pikachu-test.png', text: 'string' }
-characterQuotes:
-  [
-    ['First item', ''],
-    ['Second item', ''],
-    [3. Third item, ''],
-    [4. Fourth item, '']
-  ]
+title: "Josee to Tora to Sakanatachi"
+nativeTitle: "ジョゼと虎と魚たち"
+img: "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113596-LKA0bYJGjLnB.jpg"
+releaseDate: "25/12/2020"
+preface: "string"
+scores: { animation: 3, soundtrack: 3, narrative: 3, characters: 3 }
+rating: { img: "pikachu-test.png", text: "string", overallScore: 1 }
+characterQuotes: [{ quote: "", character: "" }]
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et egestas quis ipsum suspendisse ultrices. Nunc sed blandit libero volutpat sed cras ornare arcu. Id faucibus nisl tincidunt eget nullam non nisi. Purus ut faucibus pulvinar elementum integer enim neque volutpat. Enim blandit volutpat maecenas volutpat. Orci phasellus egestas tellus rutrum tellus pellentesque eu. Sed vulputate odio ut enim blandit volutpat maecenas volutpat. Ipsum consequat nisl vel pretium lectus. Id ornare arcu odio ut.
