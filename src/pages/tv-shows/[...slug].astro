@@ -19,16 +19,22 @@ import Star from "@icons/bxs-star.svg";
 
 import { IMediaItem } from "@utils/ts/aniListApiTypes";
 import { contentPageQuery } from "@utils/queries";
+import container from "@components/primitives/container";
 
 export async function getStaticPaths() {
   const tvShows = await getCollection("tv-shows");
 
-  return tvShows.map((entry) => ({
-    params: {
-      slug: entry.slug,
-    },
-    props: { entry: entry, next: "", previous: "" },
-  }));
+  return tvShows.map((entry, index) => {
+    const nextTvShow = tvShows[index + 1];
+    const previousTvShow = tvShows[index - 1];
+
+    return {
+      params: {
+        slug: entry.slug,
+      },
+      props: { entry: entry, next: nextTvShow, previous: previousTvShow },
+    };
+  });
 }
 
 interface Props {
@@ -38,7 +44,6 @@ interface Props {
 }
 
 const { entry, next, previous } = Astro.props;
-console.log(entry);
 const {
   characterQuotes,
   nativeTitle,
@@ -57,15 +62,12 @@ const response = await fetch("https://graphql.anilist.co", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    query: contentPageQuery,
-    variables: {
-      search: title,
-    },
+    query: contentPageQuery(entry.data.title),
   }),
 });
 
 const json = await response.json();
-const tvShowData = json.data as IMediaItem;
+const tvShowData = json?.data as IMediaItem;
 
 const {
   genres,
@@ -82,7 +84,9 @@ const {
   siteUrl,
   staff,
   trailer,
-} = tvShowData.Media;
+} = tvShowData?.Media;
+
+console.log(tvShowData);
 ---
 
 <Layout title={entry.data.title}>
@@ -127,7 +131,7 @@ const {
     </BlueGradientCard>
   </BgGradientBox>
 
-  <div>
+  <div class={container()}>
     <div class="grid grid-cols-1 gap-4 py-20 md:grid-cols-2">
       <Characters data={characters.edges} />
       <Staff data={staff.edges} />
@@ -135,7 +139,7 @@ const {
 
     <div class="py-20">
       <h1>
-        <span>bobo&apos;s ramblings</span>
+        <span>divagações do bobo&apos;s</span>
         <JpHeading top="25%">ボボ の 電波な奴</JpHeading>
       </h1>
     </div>
@@ -144,7 +148,7 @@ const {
 
     <div class="py-20">
       <h1>
-        <span>bobo&apos;s verdict</span>
+        <span>veredicto bobo&apos;s</span>
         <JpHeading>ボボ の 評決</JpHeading>
       </h1>
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -157,28 +161,12 @@ const {
       </div>
     </div>
 
-    <div class="py-20">
-      <h2 class="text-center">
-        <span>other humans opinion</span>
-      </h2>
-      <p class="text-xs">in case you're not satisfied with mine...</p>
-      <div>
-        {
-          reviews.edges.map((item) => (
-            <div>
-              <p>{item.node.summary}</p>
-              <p class="text-center">anon</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-
-    <Share
+    <!-- <Share
+      client:load
       title={`${nativeTitle} - bobo's zoomeranime`}
       url={new URL(Astro.url.pathname, Astro.site).href}
       subjects=""
-    />
+    /> -->
 
     <div class="flex justify-between">
       {
@@ -192,7 +180,7 @@ const {
             <button>
               <a href={`movies/${previous}`}>
                 <LeftArrow />
-                <span>Previous tv show</span>
+                <span>série anterior</span>
               </a>
             </button>
           </div>
@@ -209,7 +197,7 @@ const {
           >
             <a href={`tv-shows/${next}`}>
               <button>
-                <span class="mr-1">Next tv show</span>
+                <span class="mr-1">próxima série</span>
                 <RightArrow />
               </button>
             </a>

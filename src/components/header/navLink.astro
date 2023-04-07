@@ -18,7 +18,7 @@ const active = Astro.url.pathname === propHref;
 */
 
 const navLink = tv({
-  base: "flex relative z-10 rounded-sm p-4 lg:px-6 gap-2 lowercase transition-all justify-center text-center  rounded-full active:opacity-80",
+  base: "group flex relative z-10 rounded-sm p-4 lg:px-6 gap-2 lowercase transition-all justify-center text-center  rounded-full active:opacity-80 hover:text-lightPurple active:text-lightPurple",
   variants: {
     active: {
       true: "font-bold $lightBlue $lightPurple",

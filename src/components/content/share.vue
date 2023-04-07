@@ -1,15 +1,12 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
 
-/* 
 import ShareIcon from "@icons/bx-share-alt.svg";
 import LinkIcon from "@icons/bx-link.svg";
-import TwitterIcon from "@icons/bxl-twitter.svg";
-import WhatsAppIcon from "@icons/bxl-whatsapp.svg";
-import TelegramIcon from "@icons/bxl-telegram.svg";
-*/
+import TwitterIcon from "@icons/bxl-twitter.svg?component";
+import WhatsAppIcon from "@icons/bxl-whatsapp.svg?component";
+import TelegramIcon from "@icons/bxl-telegram.svg?component";
 
-import Icon from "@components/primitives/icon.vue";
 import { isMobileDevice } from "@utils/helpers";
 
 const { url, title, subjects } = defineProps<{
@@ -90,13 +87,13 @@ onMounted(() => {
 
       <template v-else>
         <button @onClick="openSocialMediaWindow($event, twitterShareUrl)">
-          <Icon name="" />
+          <TwitterIcon />
         </button>
         <button @onClick="openSocialMediaWindow($event, whatsappShareUrl)">
-          <Icon name="" />
+          <WhatsAppIcon name="" />
         </button>
         <button @onClick="openSocialMediaWindow($event, telegramShareUrl)">
-          <Icon name="" />
+          <TelegramIcon name="" />
         </button>
       </template>
 
