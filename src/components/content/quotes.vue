@@ -3,7 +3,9 @@ import { reactive, ref } from "vue";
 import { vElementSize } from "@vueuse/components";
 import { tv } from "tailwind-variants";
 
-import Icon from "@components/primitives/icon.vue";
+import LeftArrowIcon from "@icons/bx-left-arrow-alt.svg?component";
+import RightArrowIcon from "@icons/bx-left-arrow-alt.svg?component";
+import RoundedSquareIcon from "@icons/bxs-square-rounded.svg?component";
 
 const { data } = defineProps<{
   data: {
@@ -117,7 +119,7 @@ const handleCircleBtnQuotes = (index: number) => {
             :disabled="displayedQuote <= 0 && true"
             @onClick="handleBtnQuotes(false)"
           >
-            <Ico name="bx-left-arrow-alt" />
+            <LeftArrowIcon name="bx-left-arrow-alt" />
           </button>
 
           <button
@@ -125,7 +127,7 @@ const handleCircleBtnQuotes = (index: number) => {
             class=""
             @onClick="handleCircleBtnQuotes(index)"
           >
-            <Ico name="bxs-square-rounded" />
+            <RoundedSquareIcon name="bxs-square-rounded" />
           </button>
 
           <button
@@ -133,7 +135,7 @@ const handleCircleBtnQuotes = (index: number) => {
             :disabled="displayedQuote >= data.length - 1 && true"
             @onClick="handleBtnQuotes(true)"
           >
-            <Icon name="bx-right-arrow-alt" />
+            <RightArrowIcon name="bx-right-arrow-alt" />
           </button>
         </div>
       </div>

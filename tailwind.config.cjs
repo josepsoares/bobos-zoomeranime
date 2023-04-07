@@ -11,7 +11,16 @@ module.exports = {
         darkBlue: "#2f4550",
         lightPurple: "#c79bb2",
         darkPurple: "#5f3766",
+      },
+      backgroundImage: {
         blueGradient: "linear-gradient(60deg, #29323c 0%, #485563 100%)",
+      },
+      screens: {
+        sm: "576px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
     },
   },

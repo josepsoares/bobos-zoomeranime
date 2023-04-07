@@ -1,12 +1,22 @@
 <script lang="ts" setup>
+import { reactive } from "vue";
+
 const { top = "-10%", left = "40%" } = defineProps<{
-  top?: string
-  left?: string
-}>()
+  top?: string;
+  left?: string;
+}>();
+
+const styles = reactive({
+  left: left,
+  top: top,
+});
 </script>
+
 <template>
   <span
-    :class="`text-mediumBlue top-[${top}] left-[${left}] absolute -z-10 flex w-full justify-center break-keep opacity-30`">
+    :style="styles"
+    :class="`absolute -z-10 flex w-full justify-center break-keep text-mediumBlue opacity-25`"
+  >
     <slot />
   </span>
 </template>

@@ -1,7 +1,7 @@
 /* GraphQL */
-const contentPageQuery = `
-  query GetContent($search: String) {
-    Media (search: $search, type: ANIME) {
+const contentPageQuery = (search: string) => `
+  query {
+    Media (search: "${search}", type: ANIME) {
       bannerImage
       episodes
       duration

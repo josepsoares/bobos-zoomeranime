@@ -4,9 +4,10 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import Layout from "@layouts/Layout.astro";
-import TvShowsList from "@components/content/lists/tvShowsList.vue";
 import JpHeading from "@components/jpHeading.vue";
 import BgGradientBox from "@components/BgGradientBox.vue";
+import List from "@components/content/list.vue";
+import container from "@components/primitives/container";
 
 dayjs.extend(customParseFormat);
 
@@ -21,15 +22,22 @@ const sortedTvShows = getTvShows.sort((a, b) =>
 const tvShowsPerPage = Math.ceil(sortedTvShows.length / 8);
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="séries">
   <BgGradientBox img="/assets/images/movie-theatre.jpg">
-    <h1>
-      <span>tv shows</span>
-      <JpHeading>テレビ番組</JpHeading>
+    <h1 class="relative text-7xl">
+      séries
+      <JpHeading top="0" left="0">テレビ番組</JpHeading>
     </h1>
 
-    <p class="pb-6 text-center">"Lorem ipsum dolor sit amet,</p>
+    <p class="pt-6 text-center">Lorem ipsum dolor sit amet</p>
   </BgGradientBox>
 
-  <TvShowsList client:only tvShows={sortedTvShows} maxPage={tvShowsPerPage} />
+  <div class={container()}>
+    <List
+      client:load
+      items={sortedTvShows}
+      itemType="tv-shows"
+      maxPage={tvShowsPerPage}
+    />
+  </div>
 </Layout>

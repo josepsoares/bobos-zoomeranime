@@ -6,7 +6,7 @@ import NavLink from "@components/header/navLink.astro";
 import JpHeading from "@components/jpHeading.vue";
 
 const nav = tv({
-  base: "w-full left-0 before:w-full :before-h-80",
+  base: "w-full left-0 before:w-full :before-h-80 z-20",
   variants: {
     bg: {
       transparent: "bg-transparent absolute mb-24 before:mb-24",
@@ -25,34 +25,38 @@ const isAbAndTransparent =
 
 <nav class={nav({ bg: isAbAndTransparent ? "transparent" : "solid" })}>
   <div
-    class="my-9 mx-auto flex w-11/12 flex-wrap items-center justify-between gap-10 md:w-5/6 lg:w-2/3"
+    class="my-9 mx-auto flex w-11/12 flex-wrap items-center justify-between gap-4 sm:gap-6 md:w-10/12 md:gap-10 xl:w-3/4"
   >
-    <div>
-      <a href="/">
-        <h2 class="m-0 p-0">bobo's</h2>
-        <h2 class="m-0 p-0">
-          zoomer<b>anime</b>
-        </h2>
-      </a>
-    </div>
+    <a href="/">
+      <h2 class="m-0 p-0">bobo's</h2>
+      <h2 class="m-0 p-0">
+        zoomer<b>anime</b>
+      </h2>
+    </a>
 
     <div class="flex flex-row flex-wrap items-center">
-      <NavLink href="/movies">
+      <NavLink href="/tv-shows">
         <div class="flex flex-col items-center">
-          <Icon class="mb-1 w-7 h-7" name="bxs-movie" />
+          <Icon
+            class="fill-lightPurple group-hover:fill-mediumBlue group-active:fill-mediumBlue w-7 h-7 transition-colors"
+            name="bx-tv"
+          />
           <div class="relative pb-2">
-            <span>movies</span>
-            <JpHeading left="0" top="5">映画</JpHeading>
+            <span>séries</span>
+            <JpHeading left="0%" top="5%">テレビ番組</JpHeading>
           </div>
         </div>
       </NavLink>
 
-      <NavLink href="/tv-shows">
+      <NavLink href="/movies">
         <div class="flex flex-col items-center">
-          <Icon class="mb-1 w-7 h-7" name="bx-tv" />
+          <Icon
+            class="fill-lightPurple group-hover:fill-mediumBlue group-active:fill-mediumBlue w-7 h-7 transition-colors"
+            name="bxs-movie"
+          />
           <div class="relative pb-2">
-            <span>tv shows</span>
-            <JpHeading left="0" top="5">テレビ番組</JpHeading>
+            <span>filmes</span>
+            <JpHeading left="0%" top="5%">映画</JpHeading>
           </div>
         </div>
       </NavLink>
