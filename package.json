@@ -17,6 +17,9 @@
     "@astrojs/sitemap": "^1.0.1",
     "@astrojs/tailwind": "^3.0.1",
     "@astrojs/vue": "^2.1.0",
+    "@fontsource/inter": "^4.5.15",
+    "@fontsource/manrope": "^4.5.13",
+    "@fontsource/noto-sans-jp": "^4.5.12",
     "@headlessui/tailwindcss": "^0.1.2",
     "@headlessui/vue": "^1.7.10",
     "@tanstack/vue-query": "^4.24.10",
@@ -32,6 +35,7 @@
     "vue": "^3.2.30"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.9",
     "prettier": "^2.8.4",
     "prettier-plugin-astro": "^0.8.0",
     "prettier-plugin-tailwindcss": "^0.2.3",

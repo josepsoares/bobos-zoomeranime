@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
@@ -11,6 +13,11 @@ module.exports = {
         darkBlue: "#2f4550",
         lightPurple: "#c79bb2",
         darkPurple: "#5f3766",
+      },
+      fontFamily: {
+        sans: ["InterVariable", "Inter", ...defaultTheme.fontFamily.sans],
+        manrope: ["Manrope", ...defaultTheme.fontFamily.sans],
+        jp: ["Noto Sans JP", ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
         blueGradient: "linear-gradient(60deg, #29323c 0%, #485563 100%)",
