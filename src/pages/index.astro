@@ -3,7 +3,7 @@ import { CollectionEntry, getCollection } from "astro:content";
 
 import Layout from "@layouts/Layout.astro";
 import ImageBox from "@components/imageBox.vue";
-import JpHeading from "@components/jpHeading.vue";
+import Link from "@components/link.astro";
 import { getRandomItemsFromArr } from "@utils/helpers";
 import container from "@components/primitives/container";
 
@@ -12,55 +12,106 @@ const getRandomTvSeries = await getCollection("tv-shows");
 
 type TPreviewContent = CollectionEntry<"movies"> | CollectionEntry<"tv-shows">;
 
-const previewContents:
-  | CollectionEntry<"movies">
-  | CollectionEntry<"tv-shows">[] = [
-  ...getRandomItemsFromArr(getMovies, 2),
+const previewContents: TPreviewContent[] = [
   ...getRandomItemsFromArr(getRandomTvSeries, 2),
+  ...getRandomItemsFromArr(getMovies, 2),
 ];
 ---
 
 <Layout title="home">
   <div class={container()}>
-    <div class="grid grid-cols-1 gap-2 pb-5 lg:grid-cols-2">
+    <div class="grid grid-cols-1 pb-5">
       <div>
-        <p class="mb-0 pb-2">
-          sup, i'm an expert japanese cartoon watcher who writes some silly,
-          short and horrendous "essays" about animated japanese television shows
-          and movies which aired during the late nineties and the first decade
-          of the 21th century.
-        </p>
-        <p>
-          I'll only talk about some shows or films I find worth exploring (and I
-          watched), without all the crazy spoilers.
-        </p>
+        <h1 class="mb-0 pb-2 font-manrope text-6xl font-semibold">
+          ei, eu sou o <a>bobo</a>,
+        </h1>
+        <h1 class="mb-0 pb-2 font-manrope text-5xl font-semibold">
+          um mestre em animes, um desastre a escrever
+        </h1>
+        <h1 class="font-manrope text-5xl font-semibold">
+          logo, escrevo divagações¹ sobre desenhos animados japoneses²
+        </h1>
+
+        <div class="pt-6">
+          <h2 class="pb-1 font-manrope text-3xl">
+            e, já que isto tudo é dos animes é coisa recente, porque não somente
+            coisas da época dos zoomers?
+          </h2>
+          <h2 class="font-manrope text-3xl">
+            wow! bobo's zoomeranime, sim, é esse o nome, sugoi desu ne!
+          </h2>
+        </div>
       </div>
-      <div>
+      <!--   <div>
         <img
           src="/assets/images/pikachu-test.png"
           alt="teste"
           width={100}
           height={100}
         />
+      </div> -->
+    </div>
+
+    <div>
+      <p class="text-base text-stone-700">
+        ¹têm spoilers os textos? só um bocadinho, mesmo, mesmo pouquinhos
+      </p>
+      <p class="text-base text-stone-700">
+        ²só escrevi sobre algumas das séries e filmes que eu considero
+        interessantes e essenciais para ver pelo menos uma vez na vida (e que eu
+        vi, claro)
+      </p>
+    </div>
+
+    <div class="pt-20">
+      <h1 class="font-manrope text-2xl">
+        aqui estão alguns exemplos do tipo de filmes/séries que escrevi acerca
+        de:
+      </h1>
+      <div
+        class="grid grid-cols-1 gap-4 pt-10 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 xl:gap-10"
+      >
+        {
+          previewContents.map((item: TPreviewContent) => (
+            <a href={`/${item.collection}/${item.slug}`}>
+              <ImageBox
+                h="50vh"
+                image={item.data.img}
+                title={item.data.title}
+                nativeTitle={item.data.nativeTitle}
+              />
+            </a>
+          ))
+        }
       </div>
     </div>
-    <h1 class="text-center">
-      <span>featuring</span>
-      <JpHeading>テレビ番組</JpHeading>
-    </h1>
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
-      {
-        previewContents.map((item: TPreviewContent) => (
-          <a href={`/${item.collection}/${item.slug}`}>
-            <ImageBox
-              h="50vh"
-              image={item.data.img}
-              title={item.data.title}
-              nativeTitle={item.data.nativeTitle}
-            />
-          </a>
-        ))
-      }
+
+    <div
+      class="mx-auto mt-8 flex w-1/2 flex-row flex-wrap justify-center gap-10"
+    >
+      <div class="text-xl">
+        <Link text="link para ver a lista de todas as series" href="/tv-shows">
+          ver todas as séries
+        </Link>
+      </div>
+      <div class="text-xl">
+        <Link text="link para ver a lista de todos os filmes" href="/movies">
+          ver todos os filmes
+        </Link>
+      </div>
+    </div>
+
+    <div class="mt-64">
+      <h3 class="text-3xl text-lightBlue">
+        ah, é verdade, antes que me esqueça,
+      </h3>
+      <h4 class="text-2xl text-lightPurple">
+        também tenho <Link href="" text="link para o blog do bobo">
+          um blog
+        </Link>{" "}onde me podes <Link href="" text="link para o blog do bobo">
+          conhecer melhor
+        </Link> e ler textos que escrevo sobre coisas ainda mais irrelavantes, sim.
+      </h4>
     </div>
   </div>
 </Layout>
