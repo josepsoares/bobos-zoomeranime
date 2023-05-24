@@ -5,7 +5,6 @@ import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 // import sitemap from "@astrojs/sitemap";
 import image from "@astrojs/image";
-// import partytown from "@astrojs/partytown";
 import svgLoader from "vite-svg-loader";
 
 // https://astro.build/config
@@ -15,9 +14,8 @@ export default defineConfig({
   },
   integrations: [
     tailwind(),
-    vue({ appEntrypoint: "/src/pages/_app.ts" }),
+    // vue({ appEntrypoint: "/src/pages/_app.ts" }),
     // sitemap(),
     image(),
-    // partytown(),
   ],
 });

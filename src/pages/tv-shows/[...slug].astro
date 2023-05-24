@@ -5,21 +5,17 @@ import { clsx } from "clsx";
 
 import Share from "@components/content/share.vue";
 import Quotes from "@components/content/quotes.vue";
-import JpHeading from "@components/jpHeading.vue";
-import Staff from "@components/content/staff.astro";
+import JpHeading from "@components/jp-heading.vue";
+import Staff from "@components/content/staff.vue";
 import Characters from "@components/content/characters.vue";
-import BgGradientBox from "@components/BgGradientBox.vue";
-import BlueGradientCard from "@components/blueGradientCard.astro";
+import BgGradientBox from "@components/hero-image-box.vue";
 
 import Layout from "@layouts/Layout.astro";
-import LeftArrow from "@icons/bx-left-arrow-alt.svg";
-import RightArrow from "@icons/bx-right-arrow-alt.svg";
-import StarHalf from "@icons/bxs-star-half.svg";
-import Star from "@icons/bxs-star.svg";
 
 import { IMediaItem } from "@utils/ts/aniListApiTypes";
 import { contentPageQuery } from "@utils/queries";
 import container from "@components/primitives/container";
+import Link from "@components/link.astro";
 
 export async function getStaticPaths() {
   const tvShows = await getCollection("tv-shows");
@@ -91,8 +87,8 @@ console.log(tvShowData);
 
 <Layout title={entry.data.title}>
   <BgGradientBox img={bannerImage}>
-    <h1>
-      <span>{title}</span>
+    <h1 class="relative mt-14 w-full text-7xl">
+      <span class="font-bold">{title}</span>
       <JpHeading top="25%">
         {nativeTitle}
       </JpHeading>
@@ -103,62 +99,57 @@ console.log(tvShowData);
     <div>
       <p>{genres.join(", ").toLowerCase()}</p>
     </div>
-    <BlueGradientCard>
-      <div class="grid grid-cols-1 justify-center gap-4 p-4 md:grid-cols-2">
-        <div>
-          <p>
-            At {startDate.day}/{startDate.month}/{startDate.year}
-            the world could enjoy this entertainment piece.
-          </p>
-        </div>
-        <div>
-          <p>
-            about duration and time related things, well this a movie so the
-            lenght of it is about {duration} minutes.
-          </p>
-        </div>
-
-        <div>
-          <p>
-            this stuff was produced, mainly, by{" "}
-            {studios.edges[0].node.name}.
-          </p>
-        </div>
-        <div>
-          <p>to finish this off, let&apos;s talk about genres: .</p>
-        </div>
-      </div>
-    </BlueGradientCard>
   </BgGradientBox>
 
-  <div class={container()}>
-    <div class="grid grid-cols-1 gap-4 py-20 md:grid-cols-2">
-      <Characters data={characters.edges} />
-      <Staff data={staff.edges} />
+  <div class={`${container()} mt-32`}>
+    <div>
+      <h2 class="text-xl">
+        At {startDate.day}/{startDate.month}/{startDate.year}
+        the world could enjoy this entertainment piece.
+      </h2>
+
+      <h2>
+        about duration and time related things, well this a movie so the lenght
+        of it is about {duration} minutes.
+      </h2>
+
+      <h2>
+        about duration and time related things, well this a movie so the lenght
+        of it is about {duration} minutes.
+      </h2>
+
+      <h2>
+        this stuff was produced, mainly, by{" "}
+        {studios.edges[0].node.name}.
+      </h2>
+
+      <h2>
+        this stuff was produced, mainly, by{" "}
+        {studios.edges[0].node.name}.
+      </h2>
     </div>
 
-    <div class="py-20">
-      <h1>
-        <span>divagações do bobo&apos;s</span>
-        <JpHeading top="25%">ボボ の 電波な奴</JpHeading>
-      </h1>
-    </div>
+    <Characters data={characters.edges} />
 
     <Quotes data={characterQuotes} />
 
+    <Staff data={staff.edges} />
+
     <div class="py-20">
-      <h1>
-        <span>veredicto bobo&apos;s</span>
-        <JpHeading>ボボ の 評決</JpHeading>
+      <h1
+        class="relative bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-4 font-manrope text-6xl font-bold text-transparent"
+      >
+        <span>divagações do bobo&apos;s</span>
+        <JpHeading top="25%">ボボ の 電波な奴</JpHeading>
       </h1>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <h2 class="py-6">{rating.text}</h2>
-        <img
-          alt="rating illustration"
-          class="h-28 w-28"
-          src="/assets/images/pikachu-test.png"
-        />
-      </div>
+
+      <Content />
+
+      <img
+        alt="rating illustration"
+        class="h-28 w-28"
+        src="/assets/images/pikachu-test.png"
+      />
     </div>
 
     <!-- <Share
@@ -167,6 +158,24 @@ console.log(tvShowData);
       url={new URL(Astro.url.pathname, Astro.site).href}
       subjects=""
     /> -->
+
+    <div class="py-20">
+      <h1
+        class="relative bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-4 font-manrope text-6xl font-bold text-transparent"
+      >
+        <span>as palavras de outros individuos na web</span>
+      </h1>
+
+      <div>
+        {
+          reviews.edges.map((review) => (
+            <div>
+              <p>{review.node.summary}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
 
     <div class="flex justify-between">
       {
@@ -177,12 +186,13 @@ console.log(tvShowData);
               next && "md:w-auto"
             )}
           >
-            <button>
-              <a href={`movies/${previous}`}>
-                <LeftArrow />
-                <span>série anterior</span>
-              </a>
-            </button>
+            <Link
+              href={`tv-shows/${previous.slug}`}
+              text="link para a série anterior"
+              icon="bx-left-arrow-alt"
+            >
+              <span>série anterior</span>
+            </Link>
           </div>
         )
       }
@@ -195,15 +205,19 @@ console.log(tvShowData);
               previous && "md:w-auto"
             )}
           >
-            <a href={`tv-shows/${next}`}>
-              <button>
-                <span class="mr-1">próxima série</span>
-                <RightArrow />
-              </button>
-            </a>
+            <Link
+              href={`movies/${next.slug}`}
+              text="link para a série anterior"
+              icon="bx-right-arrow-alt"
+              iconPos="right"
+            >
+              <span class="mr-1">próxima série</span>
+            </Link>
           </div>
         )
       }
     </div>
+
+    <!-- say source from the animes in anilist API -->
   </div>
 </Layout>

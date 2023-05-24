@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { reactive } from "vue";
-
 const { h, image, title, nativeTitle } = defineProps<{
   h: string;
   image: string;
@@ -12,7 +10,7 @@ const { h, image, title, nativeTitle } = defineProps<{
 <template>
   <div
     :style="{ backgroundImage: `url('${image}')` }"
-    class="opacity-1 group relative h-[400px] w-full bg-cover bg-center p-0 shadow-sm transition-all before:absolute before:top-0 before:left-0 before:z-0 before:h-full before:w-full before:bg-blueGradient before:opacity-80 before:transition-all before:content-[''] hover:before:opacity-0 active:before:opacity-0 sm:h-[500px]"
+    class="opacity-1 group relative h-[400px] w-full bg-cover bg-center p-0 shadow-sm transition-all before:absolute before:top-0 before:left-0 before:z-0 before:h-full before:w-full before:bg-blueGradient before:opacity-90 before:transition-all before:content-[''] hover:before:opacity-0 active:before:opacity-0 sm:h-[500px]"
   >
     <aside
       class="relative z-10 m-0 flex h-full items-center justify-center text-center tracking-widest"

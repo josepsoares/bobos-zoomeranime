@@ -6,20 +6,28 @@ export interface Props {
   isExternalHref?: boolean;
   text: string;
   icon?: string;
+  iconPos?: string;
 }
 
-const { href, isExternalHref = "false", text, icon } = Astro.props;
+const {
+  href,
+  isExternalHref = "false",
+  text,
+  icon,
+  iconPos = "left",
+} = Astro.props;
 ---
 
 <a
   aria-label={text}
-  href={href}
+  {href}
   target={isExternalHref ? "_blank" : null}
   rel={isExternalHref ? "noopener noreferrer" : null}
   class={icon
-    ? "flex flex-row transition-colors active:text-primary-600 hover:text-primary-600 items-center underline decoration-2 decoration-[#1d976c]"
-    : "underline transition-colors decoration-2 active:text-primary-600 hover:text-primary-600 decoration-[#1d976c]"}
+    ? "flex flex-row fill-lightGrey transition-colors active:fill-lightBlue hover:fill-lightBlue active:text-lightBlue hover:text-lightBlue items-center underline decoration-2 decoration-lightPurple"
+    : "underline transition-colors decoration-2 active:fill-lightBlue hover:fill-lightBlue active:text-lightBlue hover:text-lightBlue decoration-lightPurple"}
 >
-  {icon && <Icon class="mr-2 h-5 w-5" name={icon} />}
+  {icon && iconPos === "left" && <Icon class="mr-2 h-5 w-5" name={icon} />}
   <slot />
+  {icon && iconPos === "right" && <Icon class="mr-2 h-5 w-5" name={icon} />}
 </a>

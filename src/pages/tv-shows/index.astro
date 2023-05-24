@@ -4,8 +4,8 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import Layout from "@layouts/Layout.astro";
-import JpHeading from "@components/jpHeading.vue";
-import BgGradientBox from "@components/BgGradientBox.vue";
+import JpHeading from "@components/jp-heading.vue";
+// import HeroImageBox from "@components/hero-image-box.vue";
 import List from "@components/content/list.vue";
 import container from "@components/primitives/container";
 
@@ -23,16 +23,23 @@ const tvShowsPerPage = Math.ceil(sortedTvShows.length / 8);
 ---
 
 <Layout title="séries">
-  <BgGradientBox img="/assets/images/movie-theatre.jpg">
-    <h1 class="relative font-manrope text-8xl font-semibold">
-      séries
-      <JpHeading top="0" left="0">テレビ番組</JpHeading>
-    </h1>
-
-    <p class="pt-6 text-center">Lorem ipsum dolor sit amet</p>
-  </BgGradientBox>
-
   <div class={container()}>
+    <div
+      class="relative mb-20 flex h-80 w-full flex-col items-center justify-center border-2 border-lightPurple md:h-[60vh] lg:h-[75vh]"
+    >
+      <img
+        class="absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-20"
+        src="/assets/images/tv-shows-watching-tv.webp"
+        alt=""
+      />
+      <h1 class="relative font-manrope text-8xl font-bold">
+        séries
+        <JpHeading top="0" left="0">テレビ番組</JpHeading>
+      </h1>
+
+      <p class="pt-6 text-center">Lorem ipsum dolor sit amet</p>
+    </div>
+
     <List
       client:load
       items={sortedTvShows}

@@ -2,16 +2,15 @@
 import { tv } from "tailwind-variants";
 import { Icon } from "astro-icon";
 
-import NavLink from "@components/header/navLink.astro";
-import JpHeading from "@components/jpHeading.vue";
+import NavLink from "@components/header/nav-link.astro";
+import JpHeading from "@components/jp-heading.vue";
 
 const nav = tv({
-  base: "w-full left-0 before:w-full :before-h-80 z-20",
+  base: "w-full left-0 before:w-full  z-20",
   variants: {
     bg: {
-      transparent: "bg-transparent absolute mb-24 before:mb-24",
-      solid:
-        "bg-[rgba(47, 69, 80, 0.8)] static mb-8 before:w-full before:h-80 before:mb-8",
+      transparent: "",
+      solid: "static ",
     },
   },
 });
@@ -25,7 +24,7 @@ const isAbAndTransparent =
 
 <nav class={nav({ bg: isAbAndTransparent ? "transparent" : "solid" })}>
   <div
-    class="my-9 mx-auto flex w-11/12 flex-wrap items-center justify-between gap-4 sm:gap-6 md:w-10/12 md:gap-10 xl:w-3/4"
+    class="mx-auto mt-4 mb-14 flex w-11/12 flex-wrap items-center justify-between gap-4 sm:gap-6 md:w-10/12 md:gap-10 xl:w-3/4"
   >
     <a href="/">
       <h2 class="m-0 p-0">bobo's</h2>

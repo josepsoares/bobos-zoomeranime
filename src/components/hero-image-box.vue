@@ -12,11 +12,11 @@ const styleObject = reactive({
 
 <template>
   <div
-    :style="styleObject"
-    :class="`relative mb-6 flex h-[60vh] w-full flex-col items-center justify-center`"
+    :class="`relative mb-6 flex h-[70vh] w-full flex-col items-center justify-center border-2 border-lightPurple`"
   >
     <img
-      class="absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-50"
+      :style="styleObject"
+      class="absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-20"
       :src="img"
       alt=""
     />

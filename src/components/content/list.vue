@@ -9,8 +9,9 @@ import {
   ListboxOption,
 } from "@headlessui/vue";
 
-import ImageBox from "@components/imageBox.vue";
+import ImageBox from "@components/image-card.vue";
 import CheckIcon from "@icons/bx-check.svg?component";
+import ChevronDown from "@icons/bx-chevron-down.svg?component";
 
 import { add } from "@utils/math";
 import { dateFormat, contentItemsPerPage } from "@utils/constants";
@@ -102,13 +103,19 @@ const reorderDisplayedItems = (order: string) => {
 <template>
   <div>
     <div class="flex flex-col items-start pb-6">
-      <p class="pb-2 text-sm text-stone-300">ordenar por:</p>
+      <p class="pb-1 text-sm text-stone-300">ordenar por:</p>
       <Listbox v-model="selectedOrder">
         <div class="relative mt-1 min-w-[200px]">
           <ListboxButton
             class="relative w-full cursor-pointer border-2 border-lightPurple bg-stone-800 py-2 pl-3 pr-10 text-left text-lightBlue sm:text-sm"
-            >{{ selectedOrder.name }}</ListboxButton
           >
+            <span>{{ selectedOrder.name }}</span>
+            <span
+              className="pointer-events-none  absolute inset-y-0 right-0 flex items-center pr-2 text-lightBlue"
+            >
+              <ChevronDown class="fill-lightBlue" aria-hidden="true" />
+            </span>
+          </ListboxButton>
           <ListboxOptions
             class="absolute z-20 mt-2 max-h-60 w-full cursor-pointer overflow-auto border border-lightPurple bg-stone-800 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
           >
