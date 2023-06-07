@@ -17,25 +17,25 @@ import CharactersList from "@components/content/characters-list.astro";
 import ReviewsList from "@components/content/reviews-list.astro";
 
 export async function getStaticPaths() {
-  const tvShows = await getCollection("tv-shows");
+  const films = await getCollection("films");
 
-  return tvShows.map((entry, index) => {
-    const nextTvShow = tvShows[index + 1];
-    const previousTvShow = tvShows[index - 1];
+  return films.map((entry, index) => {
+    const nextFilm = films[index + 1];
+    const previousFilm = films[index - 1];
 
     return {
       params: {
         slug: entry.slug,
       },
-      props: { entry: entry, next: nextTvShow, previous: previousTvShow },
+      props: { entry: entry, next: nextFilm, previous: previousFilm },
     };
   });
 }
 
 interface Props {
-  entry: CollectionEntry<"tv-shows">;
-  next: CollectionEntry<"tv-shows"> | null;
-  previous: CollectionEntry<"tv-shows"> | null;
+  entry: CollectionEntry<"films">;
+  next: CollectionEntry<"films"> | null;
+  previous: CollectionEntry<"films"> | null;
 }
 
 const { entry, next, previous } = Astro.props;
@@ -53,7 +53,7 @@ const response = await fetch("https://graphql.anilist.co", {
 });
 
 const json = await response.json();
-const tvShowData = json?.data as IMediaItem;
+const filmData = json?.data as IMediaItem;
 
 const {
   id,
@@ -69,7 +69,7 @@ const {
   siteUrl,
   staff,
   trailer,
-} = tvShowData?.Media;
+} = filmData?.Media;
 ---
 
 <Layout title={entry.data.title.toLowerCase()}>
@@ -275,11 +275,11 @@ const {
             )}
           >
             <Link
-              href={`tv-shows/${previous.slug}`}
-              text="link para a série anterior"
+              href={`films/${previous.slug}`}
+              text="link para o filme anterior"
               icon="bx-left-arrow-alt"
             >
-              <span>série anterior</span>
+              <span>filme anterior</span>
             </Link>
           </div>
         )
@@ -294,12 +294,12 @@ const {
             )}
           >
             <Link
-              href={`tv-shows/${next.slug}`}
-              text="link para a próxima série"
+              href={`films/${next.slug}`}
+              text="link para o próximo filme"
               icon="bx-right-arrow-alt"
               iconPos="right"
             >
-              <span class="mr-1">próxima série</span>
+              <span class="mr-1">próximo filme</span>
             </Link>
           </div>
         )

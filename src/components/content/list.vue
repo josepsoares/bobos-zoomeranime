@@ -19,7 +19,7 @@ import { paginateContentItemsArr } from "@utils/helpers";
 
 const props = defineProps<{
   items: CollectionEntry<any>[];
-  itemType: "movies" | "tv-shows";
+  itemType: "films" | "tv-shows";
   maxPage: number;
 }>();
 

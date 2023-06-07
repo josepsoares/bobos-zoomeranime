@@ -7,14 +7,14 @@ import Link from "@components/link.astro";
 import { getRandomItemsFromArr } from "@utils/helpers";
 import container from "@components/primitives/container";
 
-const getMovies = await getCollection("movies");
-const getRandomTvSeries = await getCollection("tv-shows");
+const getFilms = await getCollection("films");
+const getTvSeries = await getCollection("tv-shows");
 
-type TPreviewContent = CollectionEntry<"movies"> | CollectionEntry<"tv-shows">;
+type TPreviewContent = CollectionEntry<"films"> | CollectionEntry<"tv-shows">;
 
 const previewContents: TPreviewContent[] = [
-  ...getRandomItemsFromArr(getRandomTvSeries, 2),
-  ...getRandomItemsFromArr(getMovies, 2),
+  ...getRandomItemsFromArr(getTvSeries, 2),
+  ...getRandomItemsFromArr(getFilms, 2),
 ];
 ---
 
@@ -78,7 +78,7 @@ const previewContents: TPreviewContent[] = [
         dos anos 2000 (pertencente à geração z)
       </p>
       <p class="text-base text-stone-700">
-        <sup>3</sup> tradução neste contexto: fantástico/porreiro/wow
+        <sup>3</sup> expressão japonesa, tradução para pt neste contexto: fantástico/porreiro/wow
       </p>
     </div>
 
@@ -126,12 +126,17 @@ const previewContents: TPreviewContent[] = [
           <Link
             text="link para ver a lista de todas as series"
             href="/tv-shows"
+            icon="bx-tv"
           >
             ver todas as séries
           </Link>
         </div>
         <div class="text-xl">
-          <Link text="link para ver a lista de todos os filmes" href="/movies">
+          <Link
+            icon="bxs-movie"
+            text="link para ver a lista de todos os filmes"
+            href="/films"
+          >
             ver todos os filmes
           </Link>
         </div>

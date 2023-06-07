@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import JapaneseHeading from "@components/jp-heading.vue";
 import type { ICharacter } from "@utils/ts/aniListApiTypes";
 
 const { data } = defineProps<{
@@ -8,24 +7,30 @@ const { data } = defineProps<{
 </script>
 
 <template>
-  <div class="my-5">
-    <h1
-      class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-4 font-manrope text-5xl font-bold text-transparent"
+  <div
+    class="grid grid-cols-1 gap-4 pb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+  >
+    <div
+      v-for="char in data"
+      class="flex flex-col gap-4 border-2 border-lightPurple md:flex-row"
     >
-      stinky main characters
-      <JapaneseHeading left="0" top="-25%">ボボ の 電波な奴</JapaneseHeading>
-    </h1>
-    <div class="flex flex-row flex-wrap gap-4">
-      <div v-for="char in data" class="flex flex-col">
-        <img
-          class="h-24 w-16"
-          :alt="char.node.name.first || undefined"
-          :src="char.node.image.large"
-        />
-        <h5 class="pt-2">
-          {{ char.node.name?.first }} <br />
+      <img
+        class="h-28 w-20 object-cover"
+        :alt="char.node.name.first || undefined"
+        :src="char.node.image.large"
+      />
+      <div class="pt-2">
+        <h2 class="text-2xl">
+          {{ char.node.name?.first }}
           {{ char.node.name?.last }}
-        </h5>
+        </h2>
+        <p class="italic">{{ char.role.toLowerCase() }} character</p>
+        <p v-if="char.voiceActors">
+          VA(s):
+          <span v-for="voiceActor in char.voiceActors">
+            {{ voiceActor.name.full }}
+          </span>
+        </p>
       </div>
     </div>
   </div>

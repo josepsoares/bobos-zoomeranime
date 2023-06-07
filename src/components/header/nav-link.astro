@@ -6,23 +6,14 @@ export interface Props {
 }
 
 const { href: propHref } = Astro.props;
-const active = Astro.url.pathname === propHref;
-
-/* 
-"&:hover, &:active": {
-  color: "$lightPurple !important",
-    "& svg": {
-      fill: "$mediumBlue",
-  },
-}, 
-*/
+const active = Astro.url.pathname.includes(propHref.replace("/", ""));
 
 const navLink = tv({
-  base: "group flex relative z-10 rounded-sm p-4 lg:px-6 gap-2 lowercase transition-all justify-center text-center  rounded-full active:opacity-80 hover:text-lightPurple active:text-lightPurple",
+  base: "group flex relative z-10 rounded-sm p-4 lg:px-6 gap-2 lowercase transition-all justify-center text-center rounded-full active:opacity-80 hover:text-lightBlue active:text-lightBlue",
   variants: {
     active: {
-      true: "font-bold $lightBlue $lightPurple",
-      false: "font-normal text-white $lightBlue",
+      true: "font-bold",
+      false: "font-normal",
     },
   },
   defaultVariants: { active: false },

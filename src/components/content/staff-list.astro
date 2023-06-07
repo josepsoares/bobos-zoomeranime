@@ -1,0 +1,36 @@
+---
+import { IStaff } from "@utils/ts/aniListApiTypes";
+
+export interface Props {
+  staff: IStaff[];
+}
+
+const { staff } = Astro.props;
+---
+
+<div
+  class="grid grid-cols-1 gap-4 pb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+>
+  {
+    staff.map((staff) => (
+      <div class="border-lightPurple flex w-full gap-4 border-2">
+        <img
+          class="h-20 w-16 object-cover"
+          alt={`${staff.node.name.full} avatar`}
+          src={staff.node.image.large}
+        />
+        <div class="pt-2">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            class="line-clamp-1 decoration-lightPurple hover:fill-lightBlue hover:text-lightBlue active:fill-lightBlue active:text-lightBlue text-xl underline decoration-2 transition-colors"
+            href={staff.node.siteUrl}
+          >
+            {staff.node.name.full}
+          </a>
+          <p class="line-clamp-1 italic">{staff.role}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

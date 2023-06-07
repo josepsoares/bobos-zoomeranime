@@ -1,84 +1,103 @@
 export interface ICharacter {
-  role: string
-  node: {
-    image: {
-      large: string
-    }
+  role: string;
+  voiceActors: {
     name: {
-      first: string | null
-      last: string | null
-    }
-  }
+      full: string;
+      native: string;
+    };
+    image: {
+      large: string;
+    };
+  }[];
+  node: {
+    gender: string;
+    favourites: number;
+    description: string;
+    image: {
+      large: string;
+    };
+    name: {
+      native: string;
+      full: string;
+      first: string | null;
+      last: string | null;
+    };
+  };
 }
 
 export interface IReview {
   node: {
-    summary: string
-    rating: number
-  }
+    summary: string;
+    rating: number;
+    ratingAmount: number;
+    score: number;
+    siteUrl: string;
+  };
 }
 
 export interface IStaff {
-  role: string
+  role: string;
   node: {
+    siteUrl: string;
     name: {
-      full: string
-      native: string
-    }
+      full: string;
+      native: string;
+    };
     image: {
-      large: string
-    }
-  }
+      large: string;
+    };
+  };
 }
 
 export interface ITag {
-  category: string
-  name: string
-  isGeneralSpoiler: boolean
+  category: string;
+  name: string;
+  isGeneralSpoiler: boolean;
 }
 
 export interface IStudio {
-  id: number
-  isMain: true
+  id: number;
+  isMain: true;
   node: {
-    name: string
-    siteUrl: string
-  }
+    name: string;
+    siteUrl: string;
+  };
 }
 
 export interface IMediaItem {
   Media: {
+    id: number;
     title: {
-      romaji: string
-      native: string
-    }
-    bannerImage: string
-    episodes: number | null
-    duration: number
+      romaji: string;
+      native: string;
+    };
+    bannerImage: string;
+    episodes: number | null;
+    duration: number;
     startDate: {
-      day: number
-      month: number
-      year: number
-    }
-    averageScore: number
+      day: number;
+      month: number;
+      year: number;
+    };
+    averageScore: number;
     trailer: {
-      id: string
-    }
-    tags: ITag[]
-    genres: string[]
+      id: string;
+    };
+    tags: ITag[];
+    genres: string[];
     characters: {
-      edges: ICharacter[]
-    }
+      edges: ICharacter[];
+    };
     studios: {
-      edges: IStudio[]
-    }
+      edges: IStudio[];
+    };
     staff: {
-      edges: IStaff[]
-    }
+      edges: IStaff[];
+    };
     reviews: {
-      edges: IReview[]
-    }
-    siteUrl: string
-    idMal: number
-  }
+      edges: IReview[];
+    };
+    siteUrl: string;
+    idMal: number;
+  };
 }

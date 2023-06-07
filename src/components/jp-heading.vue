@@ -15,7 +15,7 @@ const styles = reactive({
 <template>
   <span
     :style="styles"
-    :class="`absolute -z-10 flex w-full justify-center break-keep font-jp text-mediumBlue opacity-25`"
+    :class="`absolute -z-10 flex w-full justify-center break-keep font-jp text-mediumBlue opacity-10`"
   >
     <slot />
   </span>

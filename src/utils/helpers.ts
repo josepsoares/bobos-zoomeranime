@@ -16,7 +16,7 @@ import { CollectionEntry } from "astro:content";
  * if `itemsPerPage` is negative or zero, the function returns the original `arrayToPaginate` array.
  */
 export function paginateContentItemsArr<
-  T extends CollectionEntry<"movies"> | CollectionEntry<"tv-shows">
+  T extends CollectionEntry<"films"> | CollectionEntry<"tv-shows">
 >(arrayToPaginate: T[], pageIndex: number, itemsPerPage: number): T[] {
   const indexOfLastItem = pageIndex * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

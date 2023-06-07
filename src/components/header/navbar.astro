@@ -17,14 +17,14 @@ const nav = tv({
 
 const url = Astro.url;
 
-// /movies /tv-series /movies/... /movies/[movie]
+// /films /tv-series /films/... /films/[movie]
 const isAbAndTransparent =
   url.pathname !== "/" && url.pathname !== "/404" && url.pathname !== "/500";
 ---
 
 <nav class={nav({ bg: isAbAndTransparent ? "transparent" : "solid" })}>
   <div
-    class="mx-auto mt-4 mb-14 flex w-11/12 flex-wrap items-center justify-between gap-4 sm:gap-6 md:w-10/12 md:gap-10 xl:w-3/4"
+    class="mx-auto mb-14 mt-4 flex w-11/12 flex-wrap items-center justify-between gap-4 sm:gap-6 md:w-10/12 md:gap-10 xl:w-3/4"
   >
     <a href="/">
       <h2 class="m-0 p-0">bobo's</h2>
@@ -36,10 +36,7 @@ const isAbAndTransparent =
     <div class="flex flex-row flex-wrap items-center">
       <NavLink href="/tv-shows">
         <div class="flex flex-col items-center">
-          <Icon
-            class="fill-lightPurple group-hover:fill-mediumBlue group-active:fill-mediumBlue w-7 h-7 transition-colors"
-            name="bx-tv"
-          />
+          <Icon class="fill-lightPurple w-7 h-7" name="bx-tv" />
           <div class="relative pb-2 text-xl">
             <span>séries</span>
             <JpHeading left="0%" top="5%">テレビ番組</JpHeading>
@@ -47,10 +44,10 @@ const isAbAndTransparent =
         </div>
       </NavLink>
 
-      <NavLink href="/movies">
+      <NavLink href="/films">
         <div class="flex flex-col items-center">
           <Icon
-            class="fill-lightPurple group-hover:fill-mediumBlue group-active:fill-mediumBlue w-7 h-7 transition-colors"
+            class="fill-lightPurple w-7 h-7 transition-colors"
             name="bxs-movie"
           />
           <div class="relative pb-2 text-xl">

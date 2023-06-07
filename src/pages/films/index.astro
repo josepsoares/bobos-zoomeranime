@@ -11,15 +11,15 @@ import container from "@components/primitives/container";
 
 dayjs.extend(customParseFormat);
 
-const getMovies = await getCollection("movies");
-const sortedMovies = getMovies.sort((a, b) =>
+const getFilms = await getCollection("films");
+const sortedFilms = getFilms.sort((a, b) =>
   dayjs(a.data.releaseDate, "DD/MM/YYYY").isBefore(
     dayjs(b.data.releaseDate, "DD/MM/YYYY")
   )
     ? 1
     : -1
 );
-const moviesPerPage = Math.ceil(sortedMovies.length / 8);
+const filmsPerPage = Math.ceil(sortedFilms.length / 8);
 ---
 
 <Layout title="filmes">
@@ -28,7 +28,7 @@ const moviesPerPage = Math.ceil(sortedMovies.length / 8);
       class="relative mb-20 flex h-80 w-full flex-col items-center justify-center border-2 border-lightPurple md:h-[60vh] lg:h-[75vh]"
     >
       <img
-        class="absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-20"
+        class="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-20"
         src="/assets/images/movies-movie-theatre.jpg"
         alt=""
       />
@@ -42,9 +42,9 @@ const moviesPerPage = Math.ceil(sortedMovies.length / 8);
 
     <List
       client:load
-      items={sortedMovies}
-      itemType="movies"
-      maxPage={moviesPerPage}
+      items={sortedFilms}
+      itemType="films"
+      maxPage={filmsPerPage}
     />
   </div>
 </Layout>

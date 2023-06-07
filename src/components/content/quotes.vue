@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 import { vElementSize } from "@vueuse/components";
 import { tv } from "tailwind-variants";
 
 import LeftArrowIcon from "@icons/bx-left-arrow-alt.svg?component";
-import RightArrowIcon from "@icons/bx-left-arrow-alt.svg?component";
+import RightArrowIcon from "@icons/bx-right-arrow-alt.svg?component";
 import RoundedSquareIcon from "@icons/bxs-square-rounded.svg?component";
 
 const { data } = defineProps<{
@@ -14,44 +14,7 @@ const { data } = defineProps<{
   }[];
 }>();
 
-/* 
-const quoteButton = styled('button', {
-  color: '$lightPurple',
-  backgroundCcolor: 'transparent',
-  transition: '$normal',
-  border: 0,
-  padding: '$2',
-  margin: '0 $4',
-
-  '&:hover, &:active': {
-    backgroundColor: 'rgba(88, 111, 124, 0.25)'
-  },
-
-  '&:disabled': {
-    opacity: 0.3,
-
-    '&:hover, &:active': {
-      backgroundColor: 'transparent'
-    }
-  },
-
-  svg: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-
-  variants: {
-    active: {
-      true: {
-        color: '$lightBlue',
-        backgroundColor: 'rgba(199, 155, 178, 0.25)'
-      }
-    }
-  }
-})
-*/
-
-const quoteButton = tv({
+/* const quoteButton = tv({
   base: "bg-transparent border-0 p-2 my-0 mx-2 active:bg hover:bg",
   variants: {
     active: {
@@ -61,19 +24,10 @@ const quoteButton = tv({
   },
   compoundVariants: [{ size: ["sm", "md"], class: "px-3 py-1" }],
   defaultVariants: { active: false },
-});
+}); */
 
-interface QuoteState {
-  displayedQuote: number;
-  toggle: boolean;
-}
-
-const quoteState = reactive<QuoteState>({
-  displayedQuote: 0,
-  toggle: false,
-});
-
-const { displayedQuote } = quoteState;
+const quoteRef = ref(data[0]);
+const quoteIndexRef = ref(0);
 
 const contentHeight = ref(100);
 
@@ -82,63 +36,59 @@ function onResize({ width, height }: { width: number; height: number }) {
   contentHeight.value = heightRef;
 }
 
-const handleBtnQuotes = (action: boolean) => {
-  quoteState.toggle = true;
-  setTimeout(() => {
-    const updateQuote = action ? displayedQuote + 1 : displayedQuote - 1;
-    quoteState.displayedQuote = updateQuote;
-    quoteState.toggle = false;
-  }, 300);
-};
+function handleBtnQuotes(action: "next" | "previous") {
+  const updateQuote =
+    action === "next" ? quoteIndexRef.value + 1 : quoteIndexRef.value - 1;
+  quoteRef.value = data[updateQuote];
+}
 
-const handleCircleBtnQuotes = (index: number) => {
-  quoteState.toggle = true;
-  setTimeout(() => {
-    quoteState.displayedQuote = index;
-    quoteState.toggle = false;
-  }, 300);
-};
+function handleCircleBtnQuotes(index: number) {
+  quoteIndexRef.value = index;
+  quoteRef.value = data[index];
+}
 
 // const isActive = index === displayedQuote
 </script>
 
 <template>
-  <div ref="{quotesContainerRef}" class="w-full py-20 px-4">
-    <BgGradientBox>
-      <h2 class="w-full text-center">fancy quotes proclaimed in this piece</h2>
+  <div class="mt-10 w-full">
+    <h2
+      class="mb-4 bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text font-manrope text-3xl font-semibold text-transparent"
+    >
+      frases memoravéis explanadas pelas personagens
+    </h2>
 
-      <div v-element-size="onResize" class="items-center justify-center">
-        <p class="px-2 pb-3">
-          <i>{{ data[displayedQuote].quote }}</i> -{' '}
-          <b>{{ data[displayedQuote].character }}</b>
-        </p>
+    <div v-element-size="onResize" class="items-center justify-center">
+      <p class="mb-3 text-xl">
+        <i>{{ quoteRef.quote }}</i> -
+        <b>{{ quoteRef.character }}</b>
+      </p>
 
-        <div class="items-center justify-center">
-          <button
-            class=""
-            :disabled="displayedQuote <= 0 && true"
-            @onClick="handleBtnQuotes(false)"
-          >
-            <LeftArrowIcon name="bx-left-arrow-alt" />
-          </button>
+      <div class="items-center justify-center">
+        <button
+          class=""
+          :disabled="quoteIndexRef <= 0 && true"
+          @click="handleBtnQuotes('previous')"
+        >
+          <LeftArrowIcon class="fill-lightGrey" />
+        </button>
 
-          <button
-            v-for="(_, index) in data"
-            class=""
-            @onClick="handleCircleBtnQuotes(index)"
-          >
-            <RoundedSquareIcon name="bxs-square-rounded" />
-          </button>
+        <button
+          v-for="(_, index) in data"
+          class=""
+          @click="() => handleCircleBtnQuotes(index)"
+        >
+          <RoundedSquareIcon class="fill-lightGrey" />
+        </button>
 
-          <button
-            class=""
-            :disabled="displayedQuote >= data.length - 1 && true"
-            @onClick="handleBtnQuotes(true)"
-          >
-            <RightArrowIcon name="bx-right-arrow-alt" />
-          </button>
-        </div>
+        <button
+          class=""
+          :disabled="quoteIndexRef >= data.length - 1 && true"
+          @click="() => handleBtnQuotes('next')"
+        >
+          <RightArrowIcon class="fill-lightGrey" />
+        </button>
       </div>
-    </BgGradientBox>
+    </div>
   </div>
 </template>

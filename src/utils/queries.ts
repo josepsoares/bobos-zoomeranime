@@ -2,6 +2,7 @@
 const contentPageQuery = (search: string) => `
   query {
     Media (search: "${search}", type: ANIME) {
+      id
       bannerImage
       episodes
       duration
@@ -23,7 +24,19 @@ const contentPageQuery = (search: string) => `
       characters(role: MAIN) {
         edges {
           role
+          voiceActors(language: JAPANESE) {
+            name {
+              full
+              native
+              userPreferred
+            }
+            image {
+              large
+            }
+          }
           node {
+            gender
+            favourites
             image {
               large
             }
@@ -45,7 +58,7 @@ const contentPageQuery = (search: string) => `
           }
         }
       }
-      staff(sort: RELEVANCE, page: 1) {
+      staff(sort: RELEVANCE, page: 1, perPage: 8) {
         edges {
           role
           node {
@@ -56,19 +69,27 @@ const contentPageQuery = (search: string) => `
             image {
               large
             }
+            siteUrl
           }
         }
       }
-      reviews {
+      reviews(page: 1, perPage: 9, sort: RATING_DESC) {
         edges {
           node {
             summary
             rating
+            score
+            ratingAmount
+            siteUrl
           }
         }
       }
       siteUrl
       idMal
+      externalLinks {
+        site
+        url
+      }
     }
   }
 `;

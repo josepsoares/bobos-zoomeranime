@@ -28,6 +28,6 @@ const media = defineCollection({
 });
 
 export const collections = {
-  movies: media,
+  films: media,
   "tv-shows": media,
 };

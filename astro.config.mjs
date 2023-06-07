@@ -14,7 +14,7 @@ export default defineConfig({
   },
   integrations: [
     tailwind(),
-    // vue({ appEntrypoint: "/src/pages/_app.ts" }),
+    vue(),
     // sitemap(),
     image(),
   ],

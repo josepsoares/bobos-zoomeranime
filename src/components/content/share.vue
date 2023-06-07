@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, ref } from "vue";
+import toast from "@components/toast.vue";
 
 import ShareIcon from "@icons/bx-share-alt.svg";
 import LinkIcon from "@icons/bx-link.svg";
@@ -14,6 +15,20 @@ const { url, title, subjects } = defineProps<{
   title: string;
   subjects: string;
 }>();
+
+const toastText = ref("");
+const show = ref(false);
+const type = ref("success");
+
+const showToast = (toastMessage: string, toastType: "success" | "error") => {
+  toastText.value = toastMessage;
+  type.value = toastType;
+  show.value = true;
+};
+
+const hideToast = () => {
+  show.value = false;
+};
 
 const webShareAPISupported = ref(false);
 
@@ -57,9 +72,9 @@ async function handleWebShare() {
 async function handleCopyPostLinkBtnClick() {
   try {
     await navigator.clipboard.writeText(url);
-    // toast.success("Here is your toast.");
+    showToast("Link copiado com sucesso", "success");
   } catch (err) {
-    // toast.error("Here is your toast.");
+    showToast("Erro a copiar link", "error");
   }
 }
 
@@ -73,35 +88,64 @@ onMounted(() => {
 </script>
 
 <template>
-  <Box className="share-post">
-    <Text>
-      i guess that's it, if you kinda enjoyed the ride and want to let other
-      humans feel the same you can use the buttons bellow of those social medias
-      everyone knows{' '}
-    </Text>
-    <Box>
-      <button v-if="webShareAPISupported" @onClick="handleWebShare">
-        <Icon name="" class="mr-2 inline h-4 w-4" />
+  <toast
+    :type="type"
+    :text="toastText"
+    :showToast="show"
+    @hideToast="hideToast"
+  />
+  <div>
+    <p class="text-xl text-lightGrey">
+      bem, espero que tenham gostado de ler a minha perspetiva tosca, é.
+    </p>
+    <p class="text-xl text-lightGrey">
+      se acharem um texto digno de ser partilhado com outros seres humanos deixo
+      aqui uns links para fazer essa partilha.
+    </p>
+    <div class="mt-4 flex flex-row flex-wrap gap-4">
+      <button v-if="webShareAPISupported" @clcik="handleWebShare">
+        <ShareIcon class="mr-2 inline h-4 w-4 fill-white" />
         <span>partilhar</span>
       </button>
 
       <template v-else>
-        <button @onClick="openSocialMediaWindow($event, twitterShareUrl)">
-          <TwitterIcon />
+        <button
+          class="group border-b border-b-lightPurple p-1 transition-colors"
+          @click="openSocialMediaWindow($event, twitterShareUrl)"
+        >
+          <TwitterIcon
+            class="fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+          />
         </button>
-        <button @onClick="openSocialMediaWindow($event, whatsappShareUrl)">
-          <WhatsAppIcon name="" />
+        <button
+          class="group border-b border-b-lightPurple p-1 transition-colors"
+          @click="openSocialMediaWindow($event, whatsappShareUrl)"
+        >
+          <WhatsAppIcon
+            class="fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+          />
         </button>
-        <button @onClick="openSocialMediaWindow($event, telegramShareUrl)">
-          <TelegramIcon name="" />
+        <button
+          class="group border-b border-b-lightPurple p-1 transition-colors"
+          @click="openSocialMediaWindow($event, telegramShareUrl)"
+        >
+          <TelegramIcon
+            class="fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+          />
         </button>
       </template>
 
-      <button @onClick="handleCopyPostLinkBtnClick">
-        <Icon name="" class="mr-2 inline h-4 w-4" />
-        <span>copiar link</span>
+      <button
+        class="group border-b border-b-lightPurple p-1 transition-colors"
+        @click="handleCopyPostLinkBtnClick"
+      >
+        <LinkIcon
+          class="mr-2 inline fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+        />
+        <span class="group-hover:active-lightBlue group-hover:text-lightBlue"
+          >copiar link</span
+        >
       </button>
-    </Box>
-    <Toaster />
-  </Box>
+    </div>
+  </div>
 </template>
