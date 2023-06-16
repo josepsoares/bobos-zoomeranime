@@ -2,9 +2,9 @@
 import { CollectionEntry, getCollection } from "astro:content";
 import getReadingTime from "reading-time";
 import { clsx } from "clsx";
+import { Icon } from "astro-icon";
 
 import Share from "@components/content/share.vue";
-import JpHeading from "@components/jp-heading.vue";
 
 import Layout from "@layouts/Layout.astro";
 
@@ -14,7 +14,7 @@ import container from "@components/primitives/container";
 import Link from "@components/link.astro";
 import StaffList from "@components/content/staff-list.astro";
 import CharactersList from "@components/content/characters-list.astro";
-import ReviewsList from "@components/content/reviews-list.astro";
+import ReviewsList from "@components/content/reviews-list.vue";
 
 export async function getStaticPaths() {
   const tvShows = await getCollection("tv-shows");
@@ -39,7 +39,7 @@ interface Props {
 }
 
 const { entry, next, previous } = Astro.props;
-const { nativeTitle, img, preface, rating, title } = entry.data;
+const { title, nativeTitle, preface, rating, draft } = entry.data;
 const { Content } = await entry.render();
 const readingTime = getReadingTime(entry.body);
 const roundedReadingTime = Math.round(readingTime.minutes);
@@ -67,38 +67,72 @@ const {
   episodes,
   reviews,
   siteUrl,
+  averageScore,
   staff,
   trailer,
+  source,
 } = tvShowData?.Media;
 ---
-
+<!-- TODO, add description here -->
 <Layout title={entry.data.title.toLowerCase()}>
-  <div class={`${container()}`}>
+  <h1
+    class="mx-auto block w-11/12 bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-6 font-manrope text-6xl font-bold text-transparent md:hidden md:w-10/12 md:pb-0">
+    {title}
+  </h1>
+  <div
+    class="relative mx-auto mb-10 flex w-full flex-col items-center justify-center border-y-2 border-lightBlue md:mb-16 xl:max-w-[1200px] xl:border-2 xxl:max-w-[1525px]">
+    <img
+      class="-z-10 h-40 w-full object-cover opacity-20 md:h-[325px] lg:h-[400px] xl:h-[425px]"
+      src={bannerImage}
+      alt={``}
+    />
     <div
-      class="relative mb-16 flex w-full flex-col items-center justify-center border-2 border-lightPurple md:h-[30vh]"
-    >
-      <img
-        class="absolute left-0 top-0 -z-10 h-full w-full opacity-20"
-        src={bannerImage}
-        alt={``}
-      />
-      <div class="relative w-full text-center text-6xl font-bold md:text-9xl">
-        <h1>
-          <span class="font-bold">{title.toLowerCase()}</span>
-          <JpHeading left="0%" top="5%">
+      class="absolute md:flex-col hidden h-full w-full text-center font-bold md:flex md:items-center md:justify-center">
+      {
+        nativeTitle ? (
+          <h2 class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text text-3xl text-transparent flex w-full justify-center break-keep font-jp opacity-40">
             {nativeTitle}
-          </JpHeading>
-        </h1>
-        <div></div>
+          </h2>
+        ) : null
+      }
+      <h1
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text p-6 font-manrope text-7xl font-bold text-transparent lg:text-8xl">
+        {title}
+      </h1>
+      <div class="flex flex-row gap-4 flex-wrap justify-center items-center">
+        <a
+          href={siteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Link para a página no AniList`}
+          class="group border-b border-b-lightPurple p-0.5 transition-colors">
+          <Icon
+            class="w-7 h-7 fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+            name="icon-anilist"
+          />
+        </a>
+        <a
+          href={`https://myanimelist.net/anime/${idMal}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Link para página no MyAnimeList`}
+          class="group border-b border-b-lightPurple p-0.5 transition-colors">
+          <Icon
+            class="w-7 h-7 fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+            name="icon-myanimelist"
+          />
+        </a>
       </div>
     </div>
+  </div>
 
+  <div class={`${container()}`}>
     <div class="mb-28">
       <h1 class="pb-2 font-manrope text-3xl md:text-5xl">
         gostas de <span
-          class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text font-bold italic text-transparent"
-          >{genres.join(", ").toLowerCase()}</span
-        >?
+          class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pr-2 font-bold italic text-transparent"
+          >{genres.join(", ").toLowerCase()}?</span
+        >
       </h1>
 
       <h1 class="pb-8 font-manrope text-3xl md:text-5xl">
@@ -119,40 +153,53 @@ const {
       </h2>
 
       <h2 class="pb-2 font-manrope text-3xl md:text-5xl">
+        {
+          "VISUAL_NOVEL" || "MANGA" ? (
+            <>
+              esta obra é adaptada com base no material original,{" "}
+              <b>{source.toLowerCase().replace("_", " ")}</b>.
+            </>
+          ) : (
+            <>
+              esta obra é uma <b>criação original</b>
+            </>
+          )
+        }
+      </h2>
+
+      <h2 class="pb-2 font-manrope text-3xl md:text-5xl">
         foi produzida, maioritariamente, pelo estúdio - {" "}
         <Link
           isExternalHref={true}
           text={`Link para o estúdio - ${studios.edges[0].node.name}`}
-          href={studios.edges[0].node.siteUrl}
-        >
+          href={studios.edges[0].node.siteUrl}>
           {studios.edges[0].node.name}
         </Link>.
       </h2>
 
       {
         trailer?.id && (
-          <h2 class="font-manrope pb-2 text-3xl md:text-5xl">
-            estamos curiosos? se sim podes ver aqui o{" "}
+          <h2 class="pb-2 font-manrope text-3xl md:text-5xl">
+            estamos curiosos? aqui está um{" "}
             <Link
               href={`https://www.youtube.com/watch?v=${trailer.id}`}
-              text={`link para o trailer de ${title}`}
-              isExternalHref={true}
-            >
+              text={`Link para o trailer de ${title}`}
+              isExternalHref={true}>
               trailer
-            </Link>
+            </Link>{" "}
+            maroto.
           </h2>
         )
       }
 
       <h2 class="pb-2 font-manrope text-3xl md:text-5xl">
-        sem mais demoras, vamos lá mergulhar nos detalhes
+        sem mais demoras, vamos lá mergulhar nos detalhes.
       </h2>
     </div>
 
     <div class="mb-24">
       <h1
-        class="relative mb-10 bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text font-manrope text-5xl font-bold text-transparent"
-      >
+        class="relative pb-10 bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text font-manrope text-5xl font-bold text-transparent">
         os humanos que fizeram isto
       </h1>
       <p class="text-xl">
@@ -164,121 +211,147 @@ const {
       </p>
       <StaffList staff={staff.edges} />
       <Link
+        isExternalHref={true}
         text={`Link para ver todo os membros do staff da série - ${title}`}
         href={`https://anilist.co/anime/${id}/staff`}
-        icon="bx-plus"
-      >
+        icon="bx-plus">
         ver todos os membros do staff
       </Link>
     </div>
 
     <div class="my-5">
       <h1
-        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-5xl font-bold text-transparent"
-      >
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-5xl font-bold text-transparent">
         os bonecos (aka personagens)
       </h1>
 
       <p class="text-xl">
-        antes demais, é importante relembrar as indivíduos que trabalharam
-        incansávelmente para conseguirmos apreciar esta obra de entretenimento.
+        personagens, elas são uma parte crucial de qualquer tipo narrativa.
+      </p>
+      <p class="text-xl">
+        é ao ver estes bonecos a confrontarem-se com conflitos, épicos ou mais
+        triviais, que sentimos coisas, que criamos ligações, que nos
+        identificamos.
       </p>
       <p class="mb-8 text-xl">
-        é o minímo que podemos fazer, reconhecer o ofício deles.
+        claro, não posso deixar de louvar o montante de trabalho necessário de
+        inúmeros humanos para tornar vivos estes personagens, desde as animações
+        desenhadas com imenso trabalho pelos animadores até às performances
+        emotivas dos <i>voice actors</i>.
       </p>
 
       <CharactersList characters={characters.edges} />
 
       <Link
+        isExternalHref={true}
         text={`Link para ver todo as personagens da série - ${title}`}
         href={`https://anilist.co/anime/${id}/characters`}
-        icon="bx-plus"
-      >
+        icon="bx-plus">
         ver todos os bonecos da série
       </Link>
     </div>
   </div>
 
   <div
-    class="xl:max-w[1024px] mx-auto mt-20 w-full bg-stone-950 p-6 sm:p-20 xl:border-2 xl:border-lightBlue 2xl:max-w-[1525px]"
-  >
+    class="mx-auto mt-20 w-full bg-stone-950 px-6 py-20 sm:p-20 xl:max-w-[1200px] xl:border-2 xl:border-lightBlue xxl:max-w-[1525px]">
     <h1
-      class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-6xl font-bold text-transparent md:text-8xl"
-    >
+      class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-6xl font-bold text-transparent md:text-8xl">
       divagações do bobo
     </h1>
 
-    <p class="mb-6 text-xl text-stone-500">
-      Estão prontos para uma leitura de ±{roundedReadingTime} minutos? <span
-        class="text-sm"
-        >(este número é uma estimativa automática, não levem muito à letra)</span
-      >
-    </p>
+    {
+      draft ? (
+        <div>
+          <p>Este texto ainda está em construção...</p>
+        </div>
+      ) : (
+        <>
+          <p class="mb-6 text-xl text-stone-500">
+            Estão prontos para uma leitura de ±{roundedReadingTime} minutos?{" "}
+            <span class="text-sm">
+              (este número é uma estimativa automática, não levem muito à letra)
+            </span>
+          </p>
 
-    <div class="prose prose-xl max-w-none text-lightGrey">
-      <Content />
-    </div>
+          <div class="prose prose-xl max-w-none text-lightGrey">
+            <Content />
+            <div class="mt-12">{averageScore}</div>
+          </div>
 
-    <hr class="mx-auto my-16 w-3/4 border-b border-b-lightPurple" />
+          <hr class="mx-auto my-16 w-3/4 border-b border-b-lightPurple" />
 
-    <Share
-      client:load
-      title={`${nativeTitle} - bobo's zoomeranime`}
-      url={Astro.url.href}
-      subjects=""
-    />
+          <Share
+            client:load
+            title={`${nativeTitle} - bobo's zoomeranime`}
+            url={Astro.url.href}
+            subjects=""
+          />
+        </>
+      )
+    }
   </div>
 
   <div class={`${container()}`}>
     <div class="my-20">
       <h1
-        class="relative bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-6xl font-bold text-transparent"
-      >
+        class="relative bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-6xl font-bold text-transparent">
         palavras de outros individuos na web
       </h1>
 
-      <p class="text-xl">
-        tendo em consideração que o tesouro de uma pessoa pode ser lixo para
-        outra, podem encontrar opiniões muito diferentes da minha
-      </p>
-      <p class="text-xl">
-        é sempre bom ouvir outras opiniões, por isso deixo abaixo <i
-          >review(s)</i
-        >¹ para o vosso entretenimento
-      </p>
+      {
+        reviews.edges.length ? (
+          <div>
+            <p class="text-xl">
+              tendo em consideração que o tesouro de uma pessoa pode ser lixo
+              para outra, podem encontrar opiniões muito diferentes da minha
+            </p>
+            <p class="text-xl mb-2">
+              é sempre bom ouvir outras opiniões, por isso deixo abaixo{" "}
+              <i>review(s)</i>¹ para o vosso entretenimento
+            </p>
 
-      <p class="mb-2 text-xl">
-        caso queiram ver mais <i>reviews</i> desta série deixo aqui este link: <Link
-          isExternalHref={true}
-          href={`https://myanimelist.net/anime/${idMal}`}
-          text={`reviews da série ${title} no website MyAnimeList`}
-        >
-          mal <i>reviews</i>
-        </Link>
-      </p>
+            <p class="mb-8 text-sm text-stone-700">
+              <sup>1</sup> não posso garantir a 100% que vão aparecer{" "}
+              <i>reviews</i> abaixo e, se, estiverem serão, muito provavelmente
+              em inglês
+            </p>
 
-      <p class="mb-8 text-sm text-stone-700">
-        <sup>1</sup> não posso garantir a 100% que vão aparecer reviews abaixo e,
-        se, estiverem serão, muito provavelmente em inglês
-      </p>
+            <ReviewsList client:only reviews={reviews.edges} />
 
-      <ReviewsList reviews={reviews.edges} />
+            <div class="flex flex-row flex-wrap gap-5">
+              {reviews.edges.length >= 6 ? (
+                <Link
+                  isExternalHref={true}
+                  text={`reviews da série ${title} no website AniList`}
+                  href={`https://anilist.co/anime/${id}/reviews`}
+                  icon="bx-plus">
+                  ver mais reviews
+                </Link>
+              ) : null}
+
+              <Link
+                isExternalHref={true}
+                href={`https://myanimelist.net/anime/${idMal}`}
+                text={`reviews da série ${title} no website MyAnimeList`}
+                icon="bx-plus">
+                ver mais reviews (mal)
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div />
+        )
+      }
     </div>
 
     <div class="flex flex-col items-start md:flex-row md:justify-between">
       {
         previous && (
-          <div
-            class={clsx(
-              "flex w-full justify-center md:justify-start",
-              next && "md:w-auto"
-            )}
-          >
+          <div class={clsx("flex w-full justify-start", next && "md:w-auto")}>
             <Link
               href={`tv-shows/${previous.slug}`}
               text="link para a série anterior"
-              icon="bx-left-arrow-alt"
-            >
+              icon="bx-left-arrow-alt">
               <span>série anterior</span>
             </Link>
           </div>
@@ -287,46 +360,17 @@ const {
 
       {
         next && (
-          <div
-            class={clsx(
-              "flex w-full justify-center md:justify-start",
-              previous && "md:w-auto"
-            )}
-          >
+          <div class={clsx("flex w-full justify-end", previous && "md:w-auto")}>
             <Link
-              href={`tv-shows/${next.slug}`}
+              href={`${next.slug}`}
               text="link para a próxima série"
               icon="bx-right-arrow-alt"
-              iconPos="right"
-            >
+              iconPos="right">
               <span class="mr-1">próxima série</span>
             </Link>
           </div>
         )
       }
     </div>
-
-    {
-      siteUrl ? (
-        <p class="mt-20 text-stone-700">
-          Toda a informação apresentada nesta página é obtida a partir da{" "}
-          <Link
-            isExternalHref={true}
-            text="website da API do AniList"
-            href="https://anilist.gitbook.io/anilist-apiv2-docs/"
-          >
-            API do AniList
-          </Link>
-          , também é possível ver a informação na{" "}
-          <Link
-            isExternalHref={true}
-            text={`website série no AniList - ${title}`}
-            href={siteUrl}
-          >
-            página da série na plataforma
-          </Link>
-        </p>
-      ) : null
-    }
   </div>
 </Layout>

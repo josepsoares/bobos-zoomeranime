@@ -4,8 +4,6 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 import Layout from "@layouts/Layout.astro";
-import JpHeading from "@components/jp-heading.vue";
-// import HeroImageBox from "@components/hero-image-box.vue";
 import List from "@components/content/list.vue";
 import container from "@components/primitives/container";
 
@@ -22,24 +20,31 @@ const sortedTvShows = getTvShows.sort((a, b) =>
 const tvShowsPerPage = Math.ceil(sortedTvShows.length / 8);
 ---
 
+<!-- TODO, add description here -->
 <Layout title="séries">
-  <div class={container()}>
-    <div
-      class="relative mb-20 flex h-80 w-full flex-col items-center justify-center border-2 border-lightPurple md:h-[60vh] lg:h-[75vh]"
-    >
-      <img
-        class="absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-20"
-        src="/assets/images/tv-shows-watching-tv.webp"
-        alt=""
-      />
-      <h1 class="relative font-manrope text-8xl font-bold">
+  <div
+    class="relative mx-auto mb-20 flex h-80 w-full flex-col items-center justify-center border-y-2 border-lightBlue md:mb-16 md:h-[60vh] lg:h-[75vh] xl:max-w-[1200px] xl:border-2 xxl:max-w-[1525px]">
+    <img
+      class="absolute left-0 top-0 -z-10 h-full w-full object-cover opacity-20"
+      src="/assets/images/tv-shows-watching-tv.webp"
+      alt=""
+    />
+    <div class="relative">
+      <h2
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text text-3xl text-transparent flex w-full justify-center break-keep font-jp opacity-40">
+        テレビ番組
+      </h2>
+      <h1
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text px-6 pb-6 font-manrope text-7xl font-bold text-transparent lg:text-8xl xl:text-9xl">
         séries
-        <JpHeading top="0" left="0">テレビ番組</JpHeading>
       </h1>
-
-      <p class="pt-6 text-center">Lorem ipsum dolor sit amet</p>
     </div>
+    <p class="text-center text-xl md:text-2xl">
+      emoções e cliffhangers em 12 ou mais episódios
+    </p>
+  </div>
 
+  <div class={container()}>
     <List
       client:load
       items={sortedTvShows}

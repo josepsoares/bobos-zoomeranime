@@ -35,7 +35,7 @@ const displayedItems = ref<CollectionEntry<any>[]>(
   paginateContentItemsArr(props.items, 1, contentItemsPerPage)
 );
 const pageNum = ref(1);
-const selectedOrder = ref(sortOptions[0]);
+const selectedOrder = ref(sortOptions[3]);
 
 onMounted(() => {
   window.addEventListener("scroll", handleScroll);
@@ -155,7 +155,7 @@ const reorderDisplayedItems = (order: string) => {
     </div>
     <div
       ref="scrollComponent"
-      class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 xl:gap-10"
+      class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:gap-10 2xl:grid-cols-4"
     >
       <a
         v-for="item in displayedItems"

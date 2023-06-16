@@ -15,27 +15,27 @@ function scrollToTop() {
 onMounted(() => {
   window.addEventListener(
     "scroll",
-    () => (threshold.value = window.scrollY >= 650 ? true : false)
+    () => (threshold.value = window.scrollY >= 850 ? true : false)
   );
 });
 
 onUnmounted(() => {
   window.removeEventListener(
     "scroll",
-    () => (threshold.value = window.scrollY >= 650 ? true : false)
+    () => (threshold.value = window.scrollY >= 850 ? true : false)
   );
 });
 </script>
 
 <template>
   <button
-    class="border-light-purple hover:bg-dark-blue active:bg-dark-blue hover:shadow-light-purple active:shadow-light-purple group fixed top-[90%] left-[82.5%] flex h-10 w-10 items-center justify-center border-2 border-solid bg-zinc-800 opacity-0 shadow-lg transition-all sm:left-[88%] md:left-[92.5%] lg:top-[90%] lg:left-[94%]"
-    :class="{ threshold: 'opacity-1' }"
+    :class="[threshold ? 'opacity-100' : 'opacity-0']"
+    class="border-lightPurple bg-stone-950 group fixed top-[90%] left-[82.5%] flex h-10 w-10 items-center justify-center border-2 shadow-lg transition-all sm:left-[88%] md:left-[92.5%] lg:top-[90%] lg:left-[94%] shadow-cyan-800/20"  
     :disabled="!threshold"
     @click="scrollToTop"
   >
     <ChevronUp
-      class="fill-light-blue group-hover:fill-light-purple group-active:fill-light-purple transition-all"
+      class="fill-white group-hover:fill-lightBlue group-active:fill-lightBlue transition-all"
     />
   </button>
 </template>

@@ -6,6 +6,8 @@ const contentPageQuery = (search: string) => `
       bannerImage
       episodes
       duration
+      source
+      popularity
       startDate {
         day
         month
@@ -25,6 +27,7 @@ const contentPageQuery = (search: string) => `
         edges {
           role
           voiceActors(language: JAPANESE) {
+            siteUrl
             name {
               full
               native
@@ -73,7 +76,7 @@ const contentPageQuery = (search: string) => `
           }
         }
       }
-      reviews(page: 1, perPage: 9, sort: RATING_DESC) {
+      reviews(page: 1, perPage: 6, sort: RATING_DESC) {
         edges {
           node {
             summary

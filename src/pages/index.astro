@@ -23,23 +23,21 @@ const previewContents: TPreviewContent[] = [
     <div class="grid grid-cols-1 pb-5">
       <div>
         <h1
-          class="mb-0 w-max bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-4 font-manrope text-8xl font-bold text-transparent"
-        >
+          class="mb-0.5 bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-4 font-manrope text-8xl font-bold text-transparent">
           ei, eu sou o <a class="">bobo</a>¹,
         </h1>
-        <h1 class="mb-0 w-max pb-2 font-manrope text-5xl font-semibold">
+        <h1 class="mb-0.5 pb-2 font-manrope text-5xl font-semibold">
           um pássaro fictício, <i>zoomer</i>², que consegue pensar,
         </h1>
-        <h1 class="mb-0 w-max pb-2 font-manrope text-5xl font-semibold">
+        <h1 class="mb-0.5 pb-2 font-manrope text-5xl font-semibold">
           um mestre em <b>desenhos animados japoneses</b>,
         </h1>
-        <h1 class="mb-0 w-max pb-2 font-manrope text-5xl font-semibold">
+        <h1 class="mb-0.5 pb-2 font-manrope text-5xl font-semibold">
           um desastre a <b>escrever textos</b> de todo o tipo,
         </h1>
         <h1 class="pb-2 font-manrope text-5xl font-semibold">
           um romântico que escreve <b
-            class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text text-transparent"
-          >
+            class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text text-transparent">
             divagações sobre <i>animes</i></b
           >.
         </h1>
@@ -64,12 +62,12 @@ const previewContents: TPreviewContent[] = [
         <a
           rel="noreferrer"
           target="_blank"
-          class="underline decoration-purple-900/50 transition-colors hover:decoration-lightPurple/50 active:decoration-lightPurple/50"
+          class="underline decoration-purple-800/80 transition-colors hover:decoration-lightPurple/50 active:decoration-lightPurple/50"
           href="https://josepsoares.vercel.app/">blog</a
         > e ler o meu <a
           rel="noreferrer"
           target="_blank"
-          class="underline decoration-purple-900/50 transition-colors hover:decoration-lightPurple/50 active:decoration-lightPurple/50"
+          class="underline decoration-purple-800/80 transition-colors hover:decoration-lightPurple/50 active:decoration-lightPurple/50"
           href="https://josepsoares.vercel.app/">post introdutório</a
         >
       </p>
@@ -82,21 +80,19 @@ const previewContents: TPreviewContent[] = [
       </p>
     </div>
 
-    <div class="mt-64">
+    <div class="mt-20 md:mt-48">
       <h1
-        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text font-manrope text-6xl font-bold text-transparent"
-      >
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-10 font-manrope text-6xl font-bold text-transparent">
         exemplos de animes que escrevi acerca de:
       </h1>
 
       <div
-        class="grid grid-cols-1 gap-4 pt-10 sm:grid-cols-2 md:grid-cols-3 md:gap-6 xl:grid-cols-4 xl:gap-10"
-      >
+        class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xxl:grid-cols-4 xl:gap-10">
         {
           previewContents.map((item: TPreviewContent) => (
             <a href={`/${item.collection}/${item.slug}`}>
               <ImageCard
-                h="60vh"
+                h="vh"
                 image={item.data.img}
                 title={item.data.title}
                 nativeTitle={item.data.nativeTitle}
@@ -115,19 +111,18 @@ const previewContents: TPreviewContent[] = [
           de qualquer das formas, podes encontrar obras de vários géneros e
           temas por aqui.
         </h2>
-        <h2 class="text-xl">
-          (apesar da maioria dos animes serem slice of life, um drama ou um
-          romancezinho)
+        <h2 class="text-lg mt-2 text-stone-700">
+          (com uma preferência para animes tipo <i>slice of life</i>, um
+          dramazinho ou um romancezinho)
         </h2>
       </div>
 
-      <div class="mt-8 flex flex-col gap-10 sm:flex-row">
+      <div class="mt-8 flex flex-col gap-4 sm:flex-row md:gap-10">
         <div class="text-xl">
           <Link
             text="link para ver a lista de todas as series"
             href="/tv-shows"
-            icon="bx-tv"
-          >
+            icon="bx-tv">
             ver todas as séries
           </Link>
         </div>
@@ -135,8 +130,7 @@ const previewContents: TPreviewContent[] = [
           <Link
             icon="bxs-movie"
             text="link para ver a lista de todos os filmes"
-            href="/films"
-          >
+            href="/films">
             ver todos os filmes
           </Link>
         </div>

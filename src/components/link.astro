@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon";
 
-export interface Props {
+interface Props {
   href: string;
   isExternalHref?: boolean;
   text: string;
@@ -24,10 +24,17 @@ const {
   target={isExternalHref ? "_blank" : null}
   rel={isExternalHref ? "noopener noreferrer" : null}
   class={icon
-    ? "flex flex-row fill-lightGrey transition-colors active:fill-lightBlue hover:fill-lightBlue active:text-lightBlue hover:text-lightBlue items-center underline decoration-2 decoration-lightPurple"
-    : "underline transition-colors decoration-2 active:fill-lightBlue hover:fill-lightBlue active:text-lightBlue hover:text-lightBlue decoration-lightPurple"}
->
-  {icon && iconPos === "left" && <Icon class="mr-2 h-5 w-5" name={icon} />}
+    ? "inline-flex flex-row fill-lightGrey transition-colors active:fill-lightBlue hover:fill-lightBlue active:text-lightBlue hover:text-lightBlue items-center underline decoration-2 decoration-lightPurple"
+    : "inline-flex underline transition-colors decoration-2 active:fill-lightBlue hover:fill-lightBlue active:text-lightBlue hover:text-lightBlue decoration-lightPurple"}>
+  {
+    icon && iconPos === "left" ? (
+      <Icon class="mr-2 h-5 w-5" name={icon} />
+    ) : null
+  }
   <slot />
-  {icon && iconPos === "right" && <Icon class="mr-2 h-5 w-5" name={icon} />}
+  {
+    icon && iconPos === "right" ? (
+      <Icon class="mr-2 h-5 w-5" name={icon} />
+    ) : null
+  }
 </a>

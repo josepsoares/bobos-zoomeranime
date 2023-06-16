@@ -19,7 +19,6 @@ const {
   originalTitle,
   originalDescription,
   siteName,
-  social: { twitter },
   currentURL,
   originalImage,
 } = seoConfig;
@@ -83,7 +82,6 @@ const {
     <meta property="og:site_name" content={siteName} />
 
     <meta property="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content={twitter} />
     <meta name="twitter:title" content={`${title || originalTitle}`} />
     <meta
       name="twitter:description"
@@ -110,8 +108,7 @@ const {
       class="mx-auto grid min-h-screen"
       style={{
         gridTemplateRows: "auto 1fr auto",
-      }}
-    >
+      }}>
       <Navbar />
       <div>
         <div id="main-content" class="animate-fade-in-down">
@@ -119,7 +116,7 @@ const {
         </div>
       </div>
       <Footer />
-      <ScrollToTopBtn client:load />
+      <ScrollToTopBtn client:only />
     </main>
     <style is:global>
       @tailwind base;

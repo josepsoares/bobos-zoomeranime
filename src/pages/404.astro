@@ -1,14 +1,40 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Link from "@components/link.astro";
+import container from "@components/primitives/container";
 ---
 
 <Layout title="erro 404">
-  <div class="flex h-screen flex-col items-center justify-center">
-    <img src="/assets/images/pikachu-test.png" alt="teste" />
-    <div class="pt-6 pb-2 text-center">
-      <h1>erro 404</h1>
-      <h4>página não encontrada...</h4>
+  <div class={container()}>
+    <h1
+      class="mb-4 bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text pb-4 font-manrope text-8xl font-bold text-transparent">
+      ops...
+    </h1>
+
+    <h1 class="mb-2 pb-2 font-manrope text-5xl font-semibold">
+      parece que estás numa <b
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text text-transparent"
+        >página que não existe</b
+      >
+    </h1>
+    <h1 class="mb-2 pb-2 font-manrope text-5xl font-semibold">
+      bem, não há muito para fazer aqui... hum...
+    </h1>
+    <h1 class="mb-2 pb-2 font-manrope text-5xl font-semibold">
+      que tal <b
+        class="bg-gradient-to-r from-teal-200 to-pink-300 bg-clip-text text-transparent"
+        >carregares no link abaixo</b
+      > para me ficares a conhecer melhor e ver o que tenho para oferecer neste site?
+    </h1>
+
+    <div class="mt-10">
+      <Link
+        icon="bxs-home"
+        text="link para voltar à página inicial"
+        isExternalHref={false}
+        href="/">
+        voltar à página inicial
+      </Link>
     </div>
-    <a href="/">voltar à página inicial</a>
   </div>
 </Layout>

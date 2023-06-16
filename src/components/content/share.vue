@@ -99,10 +99,23 @@ onMounted(() => {
       bem, espero que tenham gostado de ler a minha perspetiva tosca, é.
     </p>
     <p class="text-xl text-lightGrey">
-      se acharem um texto digno de ser partilhado com outros seres humanos deixo
+      se acharem que o texto é digno de ser partilhado com outros seres humanos deixo
       aqui uns links para fazer essa partilha.
     </p>
+    <p class="text-xl text-lightGrey">não sou muito das redes sociais, por isso recomendo sempre que copiem o link, é mais simples.</p>
     <div class="mt-4 flex flex-row flex-wrap gap-4">
+      <button
+        class="group border-b border-b-lightPurple p-1 transition-colors"
+        @click="handleCopyPostLinkBtnClick"
+      >
+        <LinkIcon
+          class="mr-2 inline fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
+        />
+        <span class="group-hover:active-lightBlue group-hover:text-lightBlue"
+          >copiar link</span
+        >
+      </button>
+
       <button v-if="webShareAPISupported" @clcik="handleWebShare">
         <ShareIcon class="mr-2 inline h-4 w-4 fill-white" />
         <span>partilhar</span>
@@ -135,17 +148,7 @@ onMounted(() => {
         </button>
       </template>
 
-      <button
-        class="group border-b border-b-lightPurple p-1 transition-colors"
-        @click="handleCopyPostLinkBtnClick"
-      >
-        <LinkIcon
-          class="mr-2 inline fill-lightGrey group-hover:fill-lightBlue group-active:fill-lightBlue"
-        />
-        <span class="group-hover:active-lightBlue group-hover:text-lightBlue"
-          >copiar link</span
-        >
-      </button>
+      
     </div>
   </div>
 </template>

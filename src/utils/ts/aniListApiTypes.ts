@@ -1,6 +1,7 @@
 export interface ICharacter {
   role: string;
   voiceActors: {
+    siteUrl: string
     name: {
       full: string;
       native: string;
@@ -71,6 +72,8 @@ export interface IMediaItem {
       romaji: string;
       native: string;
     };
+    source: string;
+    popularity: number;
     bannerImage: string;
     episodes: number | null;
     duration: number;

@@ -33,7 +33,7 @@ watch(
 <template>
   <Transition name="toast">
     <div
-      :class="`toast-content fixed bottom-8 left-1/2 z-50 flex w-full max-w-xs -translate-x-1/2 transform cursor-pointer items-center border-2 border-lightPurple bg-[#13100e] p-4 text-gray-400 shadow-lg shadow-indigo-500`"
+      :class="`toast-content fixed bottom-8 left-1/2 z-50 flex w-full max-w-xs -translate-x-1/2 transform cursor-pointer items-center border-2 border-lightPurple bg-[#13100e] p-4 text-gray-400 shadow-lg shadow-cyan-800/25`"
       v-show="props.showToast"
       @click="$emit('hideToast')"
     >

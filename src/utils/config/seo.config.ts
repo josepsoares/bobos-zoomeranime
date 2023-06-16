@@ -6,9 +6,6 @@ export default {
     name: 'josepsoares'
   },
   originalDescription:
-    "bobo's webpage to ramble about his favourite zoomer japanese cartoons",
-  social: {
-    twitter: "bobo's zoomeranime"
-  },
+    "a página web onde o bobo divaga sobre as suas animações nipónicas e 'zoomers' favoritas",
   siteName: "bobo's zoomeranime"
 }

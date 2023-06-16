@@ -1,4 +1,5 @@
 ---
+import Link from "@components/link.astro";
 import type { ICharacter } from "@utils/ts/aniListApiTypes";
 
 export interface Props {
@@ -9,13 +10,12 @@ const { characters } = Astro.props;
 ---
 
 <div
-  class="grid grid-cols-1 gap-4 pb-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
->
+  class="grid grid-cols-1 gap-4 pb-8 sm:grid-cols-2 lg:grid-cols-3 xxl:grid-cols-4">
   {
     characters.map((char) => (
       <div class="border-lightPurple flex flex-row gap-4 border-2">
         <img
-          class="h-28 w-20 object-cover"
+          class="h-32 w-20 object-cover"
           alt={`imagem do personagem - ${char.node.name.full}`}
           src={char.node.image.large}
         />
@@ -28,7 +28,17 @@ const { characters } = Astro.props;
           {char.voiceActors.length ? (
             <p class="line-clamp-2">
               VA(s):
-              {char.voiceActors.map((va) => va.name.full).join(", ")}
+              {char.voiceActors.map((va, i) => (
+                <>
+                  <Link
+                    isExternalHref={true}
+                    text={`Link para a página do VA - ${va.name.full} - no AniList`}
+                    href={va.siteUrl}>
+                    {va.name.full}
+                  </Link>
+                  {i !== char.voiceActors.length - 1 && ","}
+                </>
+              ))}
             </p>
           ) : null}
         </div>
